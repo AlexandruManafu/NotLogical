@@ -1,0 +1,9 @@
+<div id="navigation">
+    <h2 id = "logo">Not Logical</h2>
+    <div id = "rightMargin"></div>
+    <div id="navItems">
+        <a class= "menuButtonShape menuButtonPositioning" *ngFor="let buttonName of this.buttons" 
+        routerLink={{buttonName}} routerLinkActive="active" >{{buttonName}}
+        </a> 
+    </div>
+  </div>
