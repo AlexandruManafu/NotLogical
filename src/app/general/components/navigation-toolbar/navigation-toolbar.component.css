@@ -1,0 +1,89 @@
+.menuButtonShape{
+    padding: 0;
+    padding-left: 2ex;
+    padding-right: 2ex;
+    padding-top: 0.5ex;
+    padding-bottom: 0.5ex;
+    text-decoration: none;
+    background: none;
+    font-size: 3ex;
+    color: white;
+    background-color: #B8860B;
+  }
+
+.menuButtonPositioning{
+    display: inline;
+    margin-left: 3%;
+  }
+
+#navigation{
+    padding-top: 2ex;
+    padding-bottom: 2ex;
+    width: 100%;
+    background-color: #333333;
+  }
+
+#logo{
+    display: inline;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 2ex;
+    color: white;
+}
+
+#rightMargin{
+  display:inline;
+  margin-right: auto;
+}
+
+#navItems{
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  width: 50%;
+}
+
+@media screen and (min-width: 1400px)
+{
+  #navItems{
+    width: 45%;
+  }
+}
+
+/*Weaken right allign*/
+@media screen and (max-width: 1200px)
+{
+  #navItems{
+    left: 30%;
+    width: 80%;
+  }
+}
+/*Make margins smaller disable right allign*/
+@media screen and (max-width: 800px)
+{
+  #navItems{
+    position:relative;
+    left: 5%;
+  }
+  .menuButtonPositioning{
+    margin-left: 1%;
+  }
+}
+/*Make links go under eachother, display a menu button*/
+@media screen and (max-width: 710px)
+{
+  .menuButtonPositioning{
+    display: block;
+    margin-top: 1%;
+    margin-left: 2ex;
+    max-width: 150px;
+    text-align: center;
+  }
+  #logo{
+    margin-left: 2ex;
+    left: 5%;
+    position: relative;
+    display: block;
+  }
+}
