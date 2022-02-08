@@ -24,12 +24,17 @@ export class TestCanvasComponent implements OnInit {
     let sim = new Simulator(circuit)
 
     try{
-      sim.setInputs([false,false])
+      /*
+      sim.setInputs([true,false])
+      sim.processEvents()
+      sim.processWires()
       console.log(sim)
+      */
+     sim.simulate([true,false])
+     console.log(sim)
     }catch(e)
     {
       console.log(e)
-
     }
   }
 
@@ -49,9 +54,9 @@ export class TestCanvasComponent implements OnInit {
     circ.addGate(or)
 
     circ.addWire("wire1","i1","or1",0)
-    circ.addWire("wire1","i2","or1",1)
-    circ.addWire("wire2","or1","not1",0)
-    circ.addWire("wire3","not1","out1",0)
+    circ.addWire("wire2","i2","or1",1)
+    circ.addWire("wire3","or1","not1",0)
+    circ.addWire("wire4","not1","out1",0)
 
     return circ
   }

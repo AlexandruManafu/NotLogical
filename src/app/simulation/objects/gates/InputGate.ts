@@ -4,24 +4,24 @@ export class InputGate extends Gate{
     constructor(id : string)
     {
         super(id)
+        this.inputs = ["u"]
     }
 
-    public turnOn()
+    private setState(input : boolean | string)
     {
-        this.state = true
+        if(typeof input!="boolean" && input != "u" && input != "Z")
+            throw new Error("Not implemented "+this.Id)
+        this.state = input
     }
 
-    public turnOff()
-    {
-        this.state = false
-    }
 
     public simulate(): void {
         
     }
 
     public addInput(input: boolean | string, position: number): void {
-        
+        this.inputs[0] = input
+        this.setState(input)
     }
 
 }

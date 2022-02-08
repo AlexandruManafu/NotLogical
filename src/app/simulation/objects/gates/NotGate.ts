@@ -4,14 +4,12 @@ export class NotGate extends Gate {
     constructor(id : string)
     {
         super(id)
+        this.inputs = ["u"]
     }
 
-    public addInput(input : boolean, position : number)
-    {
-        if(this.inputs.length == 0)
-            this.inputs.push(input)
-        else
-            this.inputs[0] = input
+    public addInput(input : boolean | string, position : number)
+    {  
+        this.inputs[0] = input
     }
 
     public simulate()
