@@ -26,6 +26,17 @@ export class Circuit {
         }
     }
 
+    public getWiresByInput(inputId : string) : Array<Wire>
+    {
+        let result : Array<Wire> = []
+        for(let i = 0;i<this.wires.length;i++)
+        {
+            if(this.wires[i].inputId == inputId)
+                result.push(this.wires[i])
+        }
+        return result
+    }
+
     private getGate(id : string) : Gate | InputGate
     {
         for(let i = 0;i<this.gates.length;i++)
@@ -59,43 +70,23 @@ export class Circuit {
         this.wires = this.removeElement(this.wires,id)
     }
 
-    public turnAllOn()
-    {
-        for(let i = 0;i<this.gates.length;i++)
-        {
-            let input = this.gates[i]
-            if(input instanceof InputGate)
-                input.turnOn()
-        }
+    public setInput(inputGateId : string, value : boolean | string){
+        let input = this.getGate(inputGateId)
+        if(!(input instanceof InputGate))
+            throw new Error("Gate " + input.Id + " not an input")
+
+        input.addInput(value,0)
     }
 
-    public setInput(inputGateId : string, value : boolean){
-        try{
-            let input = this.getGate(inputGateId)
-            if(!(input instanceof InputGate))
-                throw new Error("Gate " + input.Id + " not an input")
-
-            if(value)
-                input.turnOn()
-            else
-                input.turnOff()
-
-        }catch(e){
-            console.log(e)
-        }
-    }
-
-    public getNthInput(n : number): InputGate | undefined
+    public getInputs()
     {
-        let count = n
+        let result : Array<InputGate> = []
         for(let i = 0;i<this.gates.length ; i++)
         {
             let gate = this.gates[i]
-            if(gate instanceof InputGate && count == 0)
-                return gate
-            else if(gate instanceof InputGate)
-                count = count - 1
-        }
-        return undefined
+            if(gate instanceof InputGate )
+                result.push(gate)
+        } 
+        return result
     }
 }

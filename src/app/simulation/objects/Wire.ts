@@ -3,7 +3,7 @@ import { Gate } from "./gates/Gate"
 export class Wire{
     constructor(protected id: string, protected incoming : Gate, protected outgoing : Gate, protected outPosition : number)
     {
-        this.simulateOnChange()
+
     }
 
     get Id()
@@ -11,10 +11,35 @@ export class Wire{
         return this.id
     }
 
-    private simulateOnChange()
+    get inputId()
+    {
+        return this.incoming.Id
+    }
+
+    get outputId()
+    {
+        return this.outgoing.Id
+    }
+
+    get outState()
+    {
+        return this.outgoing.State
+    }
+
+    get incomingInput()
+    {
+        return this.incoming.inputs
+    }
+
+    public propagate()
     {
         let state = this.incoming.State
         this.outgoing.addInput(state,this.outPosition)
         this.outgoing.simulate()
+    }
+
+    public remove()
+    {
+        this.outgoing.addInput("Z",this.outPosition)
     }
 }

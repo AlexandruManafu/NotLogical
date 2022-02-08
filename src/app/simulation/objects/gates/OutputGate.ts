@@ -5,14 +5,12 @@ export class OutputGate extends Gate {
     constructor(id : string)
     {
         super(id)
+        this.inputs = ["u"]
     }
 
     addInput(input : boolean|string, position : number)
     {
-        if(this.inputs.length == 0)
-            this.inputs.push(input)
-        else
-            this.inputs[0] = input
+        this.inputs[0] = input
     }
 
     public simulate()
@@ -24,7 +22,6 @@ export class OutputGate extends Gate {
             this.state = inputValue
         else
             throw new Error("Not Implmented "+ this.id)
-        console.log(this.state)
     }
 
 }
