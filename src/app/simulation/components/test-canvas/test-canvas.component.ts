@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Circuit } from '../../objects/Circuit';
-import { GateFactory } from '../../objects/factory/GateFactory';
-import { InputGate } from '../../objects/gates/InputGate';
+import { CircuitBuilder } from '../../objects/creational/CircuitBuilder';
 import { Simulator } from '../../objects/Simulator';
 
 @Component({
@@ -15,7 +14,7 @@ export class TestCanvasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.trySimulation()
+    //this.trySimulation()
   }
 
   trySimulation()
@@ -40,13 +39,13 @@ export class TestCanvasComponent implements OnInit {
 
   createMockCircuit() : Circuit
   {
+    /*
     let inpu = GateFactory.createGate("input","i1")
     let inpu2 = GateFactory.createGate("input","i2")
     let not = GateFactory.createGate("not","not1")
     let out = GateFactory.createGate("output","out1")
     let or = GateFactory.createGate("or","or1")
 
-    let circ = new Circuit()
     circ.addGate(inpu)
     circ.addGate(inpu2)
     circ.addGate(not)
@@ -57,6 +56,11 @@ export class TestCanvasComponent implements OnInit {
     circ.addWire("wire2","i2","or1",1)
     circ.addWire("wire3","or1","not1",0)
     circ.addWire("wire4","not1","out1",0)
+    */
+
+    let builder = new CircuitBuilder()
+    let circ = new Circuit(builder)
+
 
     return circ
   }

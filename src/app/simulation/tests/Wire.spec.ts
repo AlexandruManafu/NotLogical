@@ -1,7 +1,7 @@
-import { GateFactory } from "../objects/factory/GateFactory";
+import { GateFactory } from "../objects/creational/GateFactory";
 import { Wire } from "../objects/Wire";
 
-/*
+/* DEPRECATED BUT STILL HOLD
 describe('Gates', () => {
 
   let inputA  = GateFactory.createGate("input","A")

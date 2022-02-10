@@ -1,41 +1,18 @@
 import { Wire } from "./Wire"
 import { Gate } from "./gates/Gate"
 import { InputGate } from "./gates/InputGate"
+import { CircuitBuilder } from "./creational/CircuitBuilder"
 
 export class Circuit {
 
-    constructor()
+    constructor(builder : CircuitBuilder)
     {
+        this.gates = builder.Gates
+        this.wires = builder.Wires
     }
     //private inputs : Array<InputGate> = []
     private gates : Array<Gate | InputGate> = []
     private wires : Array<Wire> = []
-
-    public addGate(gate : Gate | InputGate)
-    {
-        this.gates.push(gate)
-    }
-
-    public addWire(id : string, idIncoming : string, idOutgoing : string, outPosition : number)
-    {
-        try{
-            let wire = new Wire(id,this.getGate(idIncoming),this.getGate(idOutgoing), outPosition)
-            this.wires.push(wire)
-        }catch(e){
-            console.log(e)
-        }
-    }
-
-    public getWiresByInput(inputId : string) : Array<Wire>
-    {
-        let result : Array<Wire> = []
-        for(let i = 0;i<this.wires.length;i++)
-        {
-            if(this.wires[i].inputId == inputId)
-                result.push(this.wires[i])
-        }
-        return result
-    }
 
     private getGate(id : string) : Gate | InputGate
     {
@@ -47,27 +24,14 @@ export class Circuit {
         throw new Error("No Gate found for id: " + id)
     }
 
-    private removeElement(arr : any, id : string)
+    get Wires()
     {
-        let result : Array<any> = []
-        for(let i = 0;i<arr.length;i++)
-        {
-            if(arr[i].Id != id)
-                result.push(arr[i])
-
-        }
-        
-        return result
+        return this.wires
     }
 
-    public removeGate(id : string)
+    get Gates()
     {
-        this.gates = this.removeElement(this.gates,id)
-    }
-
-    public removeWire(id : string)
-    {
-        this.wires = this.removeElement(this.wires,id)
+        return this.gates
     }
 
     public setInput(inputGateId : string, value : boolean | string){
