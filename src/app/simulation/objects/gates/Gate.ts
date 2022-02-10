@@ -1,3 +1,5 @@
+import { InputGate } from "./InputGate"
+
 export abstract class Gate {
     protected state : boolean | string = "u"
     public positionXY : Array<number> = []

@@ -31,6 +31,11 @@ export class Wire{
         return this.incoming.inputs
     }
 
+    get OutPosition()
+    {
+        return this.outPosition
+    }
+
     public propagate()
     {
         let state = this.incoming.State

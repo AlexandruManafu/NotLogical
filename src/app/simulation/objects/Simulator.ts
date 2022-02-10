@@ -36,6 +36,18 @@ export class Simulator {
         }
     }
 
+    public getWiresByInput(inputId : string) : Array<Wire>
+    {
+        let wires = this.circuit.Wires
+        let result : Array<Wire> = []
+        for(let i = 0;i<wires.length;i++)
+        {
+            if(wires[i].inputId == inputId)
+                result.push(wires[i])
+        }
+        return result
+    }
+
     public processEvents()
     {
         let event = this.eventQue.shift()
@@ -43,7 +55,7 @@ export class Simulator {
             if(event.action == "input")
                 this.circuit.setInput(event.componentId,event.newValue)
             
-            let fanout : Array<Wire> = this.circuit.getWiresByInput(event.componentId)
+            let fanout : Array<Wire> = this.getWiresByInput(event.componentId)
             for(let i = 0; i<fanout.length;i++)
             {
                 if(!this.wireQue.includes(fanout[i]))
