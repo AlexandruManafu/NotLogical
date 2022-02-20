@@ -1,15 +1,15 @@
 import { Circuit } from "./Circuit";
 import { CircuitEvent } from "./CircuitEvent"
-import { Gate } from "./gates/Gate";
 import { InputGate } from "./gates/InputGate";
+import { GateSearch } from "./utils/GateSearch";
 import { Wire } from "./Wire";
 
 export class Simulator {
-
     eventQue : Array<CircuitEvent> = []
     wireQue : Array<Wire> = []
+    visitedWires : Array<Wire> = []
 
-    constructor(private circuit : Circuit)
+    constructor(public circuit : Circuit | undefined = undefined)
     {
     }
 
@@ -18,9 +18,9 @@ export class Simulator {
         return JSON.parse(JSON.stringify(this));
     }
 
-    public setInputs(inputs: Array<boolean | string>)
+    public setInputsVector(inputs: Array<boolean | string>)
     {
-        let inputGates : Array<InputGate> = this.circuit.getInputs()
+        let inputGates : Array<InputGate> = this.circuit!.getInputs()
         if(inputs.length != inputGates.length)
             throw new Error("Input length mismatch "+ inputs)
         for(let i=0;i<inputs.length;i++)
@@ -36,16 +36,22 @@ export class Simulator {
         }
     }
 
-    public getWiresByInput(inputId : string) : Array<Wire>
+    public setInputsMap(inputs: Map<string,boolean | string>)
     {
-        let wires = this.circuit.Wires
-        let result : Array<Wire> = []
-        for(let i = 0;i<wires.length;i++)
-        {
-            if(wires[i].inputId == inputId)
-                result.push(wires[i])
-        }
-        return result
+        inputs.forEach((value: boolean | string, key: string) => {
+            let targetInput = this.circuit!.getInput(key)
+            if(targetInput!)
+            {
+                let oldValue =  targetInput.State
+                let newValue = value
+
+                if(oldValue != newValue)
+                {
+                    let even = new CircuitEvent(targetInput.Id,newValue,"input");
+                    this.eventQue.push(even)
+                }
+            }
+        });
     }
 
     public processEvents()
@@ -53,13 +59,16 @@ export class Simulator {
         let event = this.eventQue.shift()
         while(event != undefined){
             if(event.action == "input")
-                this.circuit.setInput(event.componentId,event.newValue)
+                this.circuit!.setInput(event.componentId,event.newValue)
             
-            let fanout : Array<Wire> = this.getWiresByInput(event.componentId)
+            let fanout = GateSearch.getWiresByIO(this.circuit!.Wires,event.componentId,false)
             for(let i = 0; i<fanout.length;i++)
             {
                 if(!this.wireQue.includes(fanout[i]))
+                {
                     this.wireQue.push(fanout[i])
+                    this.visitedWires.push(fanout[i])
+                }
             }
 
  
@@ -72,15 +81,15 @@ export class Simulator {
         let wire = this.wireQue.shift()
         while(wire != undefined){
 
-            console.log("Intermediary \n")
-            console.log(this.deepCopy())
+            //console.log("Intermediary")
+            //console.log(this.deepCopy())
 
-            let prevValue = wire.outState
+            let prevValue = wire.outgoing.State
             wire.propagate()
-            let newValue = wire.outState
+            let newValue = wire.outgoing.State
             if(newValue != prevValue)
             {
-                let even = new CircuitEvent(wire.outputId,newValue,"propagate");
+                let even = new CircuitEvent(wire.outgoing.Id,newValue,"propagate");
                 this.eventQue.push(even)
             }
 
@@ -88,15 +97,58 @@ export class Simulator {
         }
     }
 
-    public simulate(inputs: Array<boolean | string>)
+    private startSimulation()
     {
-        this.setInputs(inputs)
         while(this.eventQue.length != 0)
         {
             this.processEvents()
             if(this.wireQue.length != 0)
                 this.processWires()
         }
+    }
 
+    private resetVisitedWires()
+    {
+        while(this.visitedWires.length != 0)
+        {
+            let target = this.visitedWires.shift()
+            target!.resetTimesPropagated()
+        }
+    }
+
+    public simulateVector(inputs: Array<boolean | string>)
+    {
+        this.setInputsVector(inputs)
+        this.startSimulation()
+        this.resetVisitedWires()
+    }
+
+    public simulate(inputs: Map<string,boolean | string>)
+    {
+        this.setInputsMap(inputs)
+        this.startSimulation()
+        this.resetVisitedWires()
+    }
+
+    public getOutputStatesArray() : Array<boolean | string>
+    {
+        let outputs = this.circuit!.getOutputs()
+        let result = []
+        for(let i = 0;i<outputs.length;i++)
+        {
+            result.push(outputs[i].State)
+        }
+        return result
+    }
+
+    public getOutputStatesMap() : Map<string,boolean | string>
+    {
+        let outputs = this.circuit!.getOutputs()
+        let result = new Map<string,boolean | string>()
+        for(let i = 0;i<outputs.length;i++)
+        {
+            result.set(outputs[i].Id,outputs[i].State)
+        }
+        return result
     }
 }

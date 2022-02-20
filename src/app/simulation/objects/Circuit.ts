@@ -2,6 +2,8 @@ import { Wire } from "./Wire"
 import { Gate } from "./gates/Gate"
 import { InputGate } from "./gates/InputGate"
 import { CircuitBuilder } from "./creational/CircuitBuilder"
+import { OutputGate } from "./gates/OutputGate"
+import { GateSearch } from "./utils/GateSearch"
 
 export class Circuit {
 
@@ -14,16 +16,6 @@ export class Circuit {
     private gates : Array<Gate | InputGate> = []
     private wires : Array<Wire> = []
 
-    private getGate(id : string) : Gate | InputGate
-    {
-        for(let i = 0;i<this.gates.length;i++)
-        {
-            if(this.gates[i].Id == id)
-                return this.gates[i]
-        }
-        throw new Error("No Gate found for id: " + id)
-    }
-
     get Wires()
     {
         return this.wires
@@ -34,23 +26,61 @@ export class Circuit {
         return this.gates
     }
 
-    public setInput(inputGateId : string, value : boolean | string){
-        let input = this.getGate(inputGateId)
-        if(!(input instanceof InputGate))
-            throw new Error("Gate " + input.Id + " not an input")
-
+    public setInput(id : string, value : boolean | string):void
+    {
+        let input = this.getInput(id)
         input.addInput(value,0)
     }
 
-    public getInputs()
+    public getInputs() : Array<InputGate>
     {
-        let result : Array<InputGate> = []
-        for(let i = 0;i<this.gates.length ; i++)
-        {
-            let gate = this.gates[i]
-            if(gate instanceof InputGate )
-                result.push(gate)
-        } 
-        return result
+        return GateSearch.getGatesbyType(this.Gates,InputGate)
     }
+
+    public getInput(id : string) : InputGate
+    {
+        let inputs = this.getInputs()
+        return GateSearch.getGateById(inputs,id)
+        
+    }
+
+    public getOutputs() : Array<OutputGate>
+    {
+        return GateSearch.getGatesbyType(this.Gates,OutputGate)
+    }
+
+    public getOutput(id : string) : OutputGate
+    {
+        let outputs = this.getOutputs()
+        return GateSearch.getGateById(outputs,id)
+    }
+
+    //given an output O get all inputs that would propagate to O
+    public getInputsForOutput(id : string) : Array<InputGate>
+    {
+        try{
+        GateSearch.getGateById(this.gates,id)
+        }catch(e)
+        {
+            throw e
+        }
+
+        let result : Array<InputGate> = []
+        let conncectedWires = GateSearch.getWiresByIO(this.wires,id,true)
+        while(conncectedWires.length > 0)
+        {
+            let wire = conncectedWires.shift()
+            let wireInput = wire!.incoming
+            if(!(wireInput instanceof OutputGate))
+            {
+                let nextWires = GateSearch.getWiresByIO(this.wires,wireInput.Id,true)
+                conncectedWires.push(...nextWires)
+            }
+            if(wireInput instanceof InputGate)
+                result.push(wireInput)
+        }
+        return result
+
+    }
+
 }
