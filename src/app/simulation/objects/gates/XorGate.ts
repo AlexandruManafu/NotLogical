@@ -1,7 +1,6 @@
 import { Gate } from "./Gate"
 
-export class OrGate extends Gate {
-    numberInputs = 2
+export class XorGate extends Gate {
     constructor(id : string)
     {
         super(id)
@@ -10,21 +9,19 @@ export class OrGate extends Gate {
 
     public addInput(input : boolean | string, position : number)
     {
-        if(position < this.numberInputs)
+        if(position < 2)
             this.inputs[position] = input
-        else if(position == this.numberInputs + 1)
-            this.inputs.push(input)
         else
             throw new Error("Invalid position for binary gate "+this.Id)
     }
 
     public simulate()
     {
-        if(this.inputs.includes(true))
-            this.state = true
-        else if(this.inputs.includes("u") || this.inputs.includes("Z") )
+        if(this.inputs.includes("u") || this.inputs.includes("Z") )
             this.state = "u"
-        else if(!this.inputs.includes(true))
+        else if(this.inputs[0] != this.inputs[1])
+            this.state = true
+        else if(this.inputs[0] == this.inputs[1])
             this.state = false
         else
             throw new Error("Not Implmented "+ this.id)

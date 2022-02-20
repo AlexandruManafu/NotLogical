@@ -1,7 +1,9 @@
 import { Gate } from "./gates/Gate"
 
 export class Wire{
-    constructor(protected id: string, protected incoming : Gate, protected outgoing : Gate, protected outPosition : number)
+    private timesPropagated = 0
+    constructor(protected id: string, protected numberCyclesAllowed : number,
+                public incoming : Gate, public outgoing : Gate, protected outPosition : number)
     {
 
     }
@@ -11,39 +13,33 @@ export class Wire{
         return this.id
     }
 
-    get inputId()
-    {
-        return this.incoming.Id
-    }
-
-    get outputId()
-    {
-        return this.outgoing.Id
-    }
-
-    get outState()
-    {
-        return this.outgoing.State
-    }
-
-    get incomingInput()
-    {
-        return this.incoming.inputs
-    }
-
     get OutPosition()
     {
         return this.outPosition
     }
 
-    public propagate()
+    public resetTimesPropagated()
     {
-        let state = this.incoming.State
-        this.outgoing.addInput(state,this.outPosition)
-        this.outgoing.simulate()
+        this.timesPropagated = 0
     }
 
-    public remove()
+    public propagate()
+    {
+        if(this.timesPropagated <= this.numberCyclesAllowed)
+        {
+            let state = this.incoming.State
+            this.outgoing.addInput(state,this.outPosition)
+            this.outgoing.simulate()
+        }
+        else
+        {
+            this.outgoing.addInput("u",this.outPosition)
+            this.outgoing.simulate()
+        }
+        this.timesPropagated +=1
+    }
+
+    public disconnect()
     {
         this.outgoing.addInput("Z",this.outPosition)
     }
