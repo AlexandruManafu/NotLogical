@@ -1,0 +1,37 @@
+#canvas{
+    display: block;
+    position:fixed;
+    width: 100%;
+    min-height: 100%;
+}
+
+.grid {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+.grid {
+    background-image:
+      repeating-linear-gradient(#ccc 0 1px, transparent 1px 100%),
+      repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+}
+
+#gatesList{
+    position: fixed;
+    background-color: orange;
+    margin-top: 3%;
+    margin-left: 1%;
+    height: 80%;
+    width: 50ex;
+    padding-top: 2ex;
+    padding-left: 2ex;
+    padding-right: 2ex;
+    padding-bottom: 2ex;
+}
+
+.drop-preview {
+    display: none;
+}
+.cdk-drag-preview{
+    display: none;
+}

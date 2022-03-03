@@ -1,0 +1,11 @@
+div{
+    display: block;
+    width: fit-content;
+}
+.gateIcon
+{
+    width : 20ex;
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}

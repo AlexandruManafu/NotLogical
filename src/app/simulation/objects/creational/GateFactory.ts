@@ -10,7 +10,7 @@ import { NorGate } from "../gates/NorGate"
 export class GateFactory{
     constructor(){}
 
-    public static createGate(type : string,id : string) : Gate | InputGate
+    public static createGate(type : string | undefined,id : string) : Gate | InputGate
     {
 
         switch(type)
@@ -34,4 +34,22 @@ export class GateFactory{
                 throw new Error("Invalid gate type")
         }
     }
+
+    public static createGateLongNames(longName : string, id : string)
+    {
+        let map = new Map<string,string>()
+        map.set("NotGate","not")
+        map.set("InputGate","input")
+        map.set("OutputGate","output")
+        map.set("AndGate","and")
+        map.set("OrGate","or")
+        map.set("XorGate","xor")
+        map.set("NorGate","nor")
+
+        let short = map.get(longName)
+        return this.createGate(short,id)
+        
+
+    }
+
 }
