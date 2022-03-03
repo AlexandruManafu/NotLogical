@@ -1,5 +1,6 @@
 import { Circuit } from "./Circuit";
 import { Simulator } from "./Simulator";
+import { ArrayUtils } from "./utils/ArrayUtils";
 
 export class TruthTable {
 
@@ -86,25 +87,12 @@ export class TruthTable {
 
         return result
     }
-
-    private arraysEqual(key1 : Array<any>,key2 : Array<any>)
-    {
-        if(key1.length != key2.length)
-            return false
-        for(let i = 0;i<key1.length;i++)
-        {
-            if(key1[i] != key2[i])
-                return false
-        }
-        return true
-    }
-
     public setOutput(combination : Array<string|boolean>, output : string | boolean) : void
     {
         let valueSet = false
         let map = this.combinationOutputMap
         map.forEach((value,key) =>{
-            if(this.arraysEqual(key,combination))
+            if(ArrayUtils.arraysEqual(key,combination))
             {
                 map.set(key,output)
                 valueSet = true
@@ -119,7 +107,7 @@ export class TruthTable {
         let result : boolean | string = "u"
         let map = this.combinationOutputMap
         map.forEach((value,key) =>{
-            if(this.arraysEqual(key,combination))
+            if(ArrayUtils.arraysEqual(key,combination))
                 result = value
         })
         return result

@@ -1,0 +1,10 @@
+<div 
+cdkDrag
+[cdkDragConstrainPosition]="getPositionRender()"
+>
+    <img class = "gateIcon" *ngIf = "type!" 
+    [style.width]="getWidthHeight()[0]+'px'"
+    [style.height]="getWidthHeight()[1]+'px'"
+    src="\assets\logic gate icons\{{type}}.svg" alt="gate: {{type}}"
+    > 
+</div>

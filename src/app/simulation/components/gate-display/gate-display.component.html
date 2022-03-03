@@ -1,0 +1,12 @@
+<div id="gate" 
+    cdkDrag
+    [cdkDragData]="gate"
+    [style.left]="this.gate!.positionXY[0]+'px'"
+    [style.top]="this.gate!.positionXY[1]+'px'"
+    [cdkDragConstrainPosition]="getPositionRender()"
+    >
+    <img class = "gateIcon"
+    [style.width]="getWidthHeight()[0]+'px'"
+    [style.height]="getWidthHeight()[1]+'px'"
+    src="\assets\logic gate icons\{{getType()}}.svg" alt="gate: {{getType()}}"> 
+</div>
