@@ -1,0 +1,25 @@
+.menuSection{
+    width: 95%;
+    border-style: solid;
+    padding-top: 0.5ex;
+    padding-bottom: 0.5ex;
+    padding-left: 0.5ex;
+    padding-right: 0.5ex;
+    display: inline-block;
+}
+
+.menuColapseButton
+{
+    display: inline-block;
+    position: absolute;
+    right: 5%;
+    width: 4ex;
+    border-style: solid;
+    margin-top: -0.5ex;
+
+}
+
+p{
+    font-size: 3ex;
+    display: inline;
+}

@@ -26,7 +26,7 @@ export class VisualGateMoveService {
   computeDragRenderPosUnary(pos : any, dragRef : any):Point
    {
     return {x: Math.floor(pos.x / 60) * 60 + 25,
-            y: Math.floor(pos.y / 20) * 20 + 10};
+            y: Math.floor(pos.y / 60) * 60 + 25};
   }
 
   //Callback function that cannot access atributes
@@ -46,17 +46,26 @@ export class VisualGateMoveService {
       throw new Error("Invalid number of inputs 1 or 2 expected given"+numberInputs)
   }
 
+  public getNumberInputs(gateName : string) : number
+  {
+    let unary = ["input","InputGate","output","OutputGate","not","NotGate"]
+    if(unary.includes(gateName))
+      return 1
+    else
+      return 2
+  }
+
   public getWidthHeight(numberInputs:number)
   {
     if(numberInputs==1)
-      return [60,20]
+      return [60,60]
     else if(numberInputs==2)
       return [120,60]
     else
       throw new Error("Invalid number of inputs 1 or 2 expected given"+numberInputs)
   }
 
-  computeSnapPosition(position:any, numberInputs : number)
+  computeSnapPosition(position:any, numberInputs : number) : Array<number>
   {
     let widthHeight = this.getWidthHeight(numberInputs)
     let x = position.x
@@ -68,8 +77,8 @@ export class VisualGateMoveService {
     }
     else if(numberInputs==1)
     {
-      x = Math.floor(position.x / widthHeight[0]) * widthHeight[0] 
-      y = Math.floor(position.y / widthHeight[1]) * widthHeight[1] - widthHeight[1] * 3
+      x = Math.floor(position.x / widthHeight[0]) * widthHeight[0]
+      y = Math.floor(position.y / widthHeight[1]) * widthHeight[1] - widthHeight[1]
     }
 
     return  [x,y]
@@ -105,17 +114,10 @@ export class VisualGateMoveService {
     {
       let x = gateList[i].positionXY[0]
       let y = gateList[i].positionXY[1]
-
-
-      if(
-        x > newPositionXY[0]-this.canvasGridSize[0] && x < newPositionXY[0] + this.canvasGridSize[0] 
-        && y > newPositionXY[1]-this.canvasGridSize[1] && y < newPositionXY[1] + this.canvasGridSize[1]
-        )
-        {
+      if(x > newPositionXY[0]-this.canvasGridSize[0]/2 && x < newPositionXY[0] + this.canvasGridSize[0]/2 && 
+         y > newPositionXY[1]-this.canvasGridSize[1] && y < newPositionXY[1] + this.canvasGridSize[1])
           result.push(gateList[i])
-        }
     }
-
     return result
   }
 
@@ -123,9 +125,7 @@ export class VisualGateMoveService {
   public isPositionOccupied(gateList : Array<Gate>, positionXY : Array<number>, numberInputs : number)
   {
     let gatesInCell = this.getGatesInCell(gateList,positionXY)
-    
     return this.isCellOcupied(gatesInCell,positionXY) || (numberInputs == 2 && gatesInCell.length !=0)
-
   }
 
 }

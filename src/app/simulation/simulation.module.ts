@@ -4,6 +4,10 @@ import { TestCanvasComponent } from './components/test-canvas/test-canvas.compon
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import { GateDisplayComponent } from './components/gate-display/gate-display.component';
 import { GateCreateComponent } from './components/gate-create/gate-create.component';
+import { ComponentsToolbarComponent } from './components/components-toolbar/components-toolbar.component';
+import { ComponentsCreateDropdownComponent } from './components/components-create-dropdown/components-create-dropdown.component';
+import { GateDeleteDropComponent } from './components/gate-delete-drop/gate-delete-drop.component';
+import { SimulationPlayBarComponent } from './components/simulation-play-bar/simulation-play-bar.component';
 
 
 
@@ -11,7 +15,11 @@ import { GateCreateComponent } from './components/gate-create/gate-create.compon
   declarations: [
     TestCanvasComponent,
     GateCreateComponent,
-    GateDisplayComponent
+    GateDisplayComponent,
+    ComponentsToolbarComponent,
+    ComponentsCreateDropdownComponent,
+    GateDeleteDropComponent,
+    SimulationPlayBarComponent
   ],
   imports: [
     CommonModule,

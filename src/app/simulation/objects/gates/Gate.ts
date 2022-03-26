@@ -18,4 +18,8 @@ export abstract class Gate {
     }
     public abstract addInput(input : boolean | string, position : number) : void
     public abstract simulate() : void
+    public reset()
+    {
+        this.state = "u"
+    }
 }

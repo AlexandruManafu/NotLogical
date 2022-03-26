@@ -1,21 +1,15 @@
 <div id = "canvas" class ="grid" cdkDropList cdkDropListSortingDisabled
     (cdkDropListDropped) = "onDrop($event)"
+    [cdkDropListConnectedTo]="['deleteGateDrop']"
     [style.background-size]="canvasCellSizesXY[0]+'px '+canvasCellSizesXY[1]+'px'" 
     >
-    <app-gate-display *ngFor="let element of actualGates; let i = index; trackBy: customTB"
+    <app-gate-display *ngFor="let element of circuitManipulation.builder.gates; let i = index; trackBy: customTB"
         [gate] = "element" 
         (click)="setTargetGate(element)"
         (mousedown) = "setTargetGate(element)"
     ></app-gate-display>
 </div>
 
-<div id = "gatesList" 
-cdkDropList 
-cdkDropListSortingDisabled
-[cdkDropListConnectedTo]="['canvas']"
->
-    <app-gate-create *ngFor = "let element of gateTypes" 
-        [type] = "element"
-    >
-    </app-gate-create>
-</div>
+<app-components-toolbar></app-components-toolbar>
+<app-simulation-play-bar></app-simulation-play-bar>
+<app-gate-delete-drop></app-gate-delete-drop>

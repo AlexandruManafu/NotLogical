@@ -1,0 +1,16 @@
+<div class = "menuSection">
+    <p>{{title}}</p>
+    <img class = "menuColapseButton"
+     [style.transform]="'rotate('+buttonDegrees+'deg)'"
+     src="\assets\general icons\down-arrow th studio.svg" (click)="onClick()"/>
+    
+</div>
+<div *ngIf="elements! && display">
+    <br>
+    <app-gate-create
+        *ngFor = "let element of elements" 
+        [type] = "element"
+        >
+    </app-gate-create>
+    <br><br>
+</div>

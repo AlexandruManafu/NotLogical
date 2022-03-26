@@ -34,9 +34,11 @@ export class CircuitBuilder{
         throw new Error("Duplicate id: " + gate.Id)
     }
 
-    public gate(type : string, id : string = type) : CircuitBuilder
+    public gate(type : string, id : string = type, positionXY? : Array<number>): CircuitBuilder
     {
         let newGate = GateFactory.createGate(type,id)
+        if(positionXY!)
+            newGate.positionXY = positionXY
         this.addGate(newGate)
 
         return this;
