@@ -1,0 +1,13 @@
+<div id = "gatesList" class = "colorWithShadow fitWithPadding"
+cdkDrag
+cdkDragLockAxis="y"
+cdkDropList 
+cdkDropListSortingDisabled
+[cdkDropListConnectedTo]="['canvas']"
+>
+    <app-components-create-dropdown [title] = "'IO'" [elements] = "IOTypes">
+    </app-components-create-dropdown>
+
+    <app-components-create-dropdown [title] = "'Logic Gates'" [elements] = "gateTypes">
+    </app-components-create-dropdown>
+</div>

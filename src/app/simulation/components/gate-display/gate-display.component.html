@@ -1,12 +1,35 @@
-<div id="gate" 
+<div id="gate" *ngIf="gate!"
     cdkDrag
     [cdkDragData]="gate"
     [style.left]="this.gate!.positionXY[0]+'px'"
     [style.top]="this.gate!.positionXY[1]+'px'"
     [cdkDragConstrainPosition]="getPositionRender()"
+    
     >
     <img class = "gateIcon"
     [style.width]="getWidthHeight()[0]+'px'"
     [style.height]="getWidthHeight()[1]+'px'"
-    src="\assets\logic gate icons\{{getType()}}.svg" alt="gate: {{getType()}}"> 
+    src="\assets\logic gate icons\{{getType()}}.svg" alt="gate: {{getType()}}">
+    <p class = "IOState" 
+    *ngIf="(getType() == 'OutputGate' || getType() == 'InputGate') && gate!"
+    (click) = "onClickInput()"
+    >{{getState()}}</p>
+
+    <div *ngIf = "getType()!='InputGate'" class = "gateInputs">
+        <div (click) = "setWireOutgoing(0)" class = "middleInput" *ngIf="getNumberInputs() == 1">
+
+        </div>
+        <div (click) = "setWireOutgoing(0)" class = "topInput" *ngIf="getNumberInputs() == 2">
+
+        </div>
+        <div (click) = "setWireOutgoing(1)" class = "bottomInput" *ngIf="getNumberInputs() == 2">
+
+        </div>
+    </div>
+    <div *ngIf="getNumberInputs() == 1" (click) = "setWireIncoming()" class = "gateOutputUnary">
+
+    </div>
+    <div *ngIf="getNumberInputs() == 2" (click) = "setWireIncoming()" class = "gateOutputBinary">
+
+    </div>
 </div>

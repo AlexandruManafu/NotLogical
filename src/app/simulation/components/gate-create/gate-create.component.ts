@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CircuitManipulationService } from '../../services/circuit-manipulation.service';
 import { VisualGateMoveService } from '../../services/visual-gate-move.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { VisualGateMoveService } from '../../services/visual-gate-move.service';
 export class GateCreateComponent implements OnInit {
 
   @Input() type = "";
-  constructor(private gateMoveService : VisualGateMoveService) { }
+  constructor(private circuitManipulation : CircuitManipulationService) { }
 
   ngOnInit(): void {
 
@@ -25,14 +26,26 @@ export class GateCreateComponent implements OnInit {
 
   getWidthHeight()
   {
+    let gateMoveService = this.circuitManipulation.gateMoveService
     let numberInputs = this.getNumberInputs()
-    return this.gateMoveService.getWidthHeight(numberInputs)
+    return gateMoveService.getWidthHeight(numberInputs)
   }
 
   getPositionRender()
   {
+    let gateMoveService = this.circuitManipulation.gateMoveService
     let numberInputs = this.getNumberInputs()
-    return this.gateMoveService.getDragRenderPos(numberInputs)
+    return gateMoveService.getDragRenderPos(numberInputs)
+  }
+
+  setTargetCreateGate(type : string)
+  {
+    this.circuitManipulation.targetCreateGate = type
+  }
+
+  public longToShortName(gateName : string)
+  {
+    return gateName.replace("Gate","");
   }
 
 }

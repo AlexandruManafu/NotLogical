@@ -11,5 +11,13 @@ export class ArrayUtils{
         }
         return true
     }
+
+    public static removeItem(key : any, arr : Array<any>)
+    {
+        const index = arr.indexOf(key, 0);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+    }
     
 }

@@ -1,5 +1,5 @@
 div{
-    display: block;
+    display: inline-block;
     width: fit-content;
 }
 .gateIcon
@@ -8,4 +8,8 @@ div{
     height: auto;
     margin-top: auto;
     margin-bottom: auto;
+}
+p{
+    margin-top: -1ex;
+    text-align: center;
 }

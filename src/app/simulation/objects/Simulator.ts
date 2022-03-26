@@ -18,6 +18,12 @@ export class Simulator {
         return JSON.parse(JSON.stringify(this));
     }
 
+    public addInputEvent(id:string,value:string|boolean)
+    {
+        let even = new CircuitEvent(id,value,"input");
+        this.eventQue.push(even)
+    }
+
     public setInputsVector(inputs: Array<boolean | string>)
     {
         let inputGates : Array<InputGate> = this.circuit!.getInputs()
@@ -29,10 +35,7 @@ export class Simulator {
             let oldValue =  inputGates[i].State
 
             if(oldValue != inputs[i])
-            {
-                let even = new CircuitEvent(id,inputs[i],"input");
-                this.eventQue.push(even)
-            }
+                this.addInputEvent(id,inputs[i])
         }
     }
 
@@ -46,10 +49,7 @@ export class Simulator {
                 let newValue = value
 
                 if(oldValue != newValue)
-                {
-                    let even = new CircuitEvent(targetInput.Id,newValue,"input");
-                    this.eventQue.push(even)
-                }
+                    this.addInputEvent(targetInput.Id,newValue)
             }
         });
     }
@@ -89,7 +89,7 @@ export class Simulator {
             let newValue = wire.outgoing.State
             if(newValue != prevValue)
             {
-                let even = new CircuitEvent(wire.outgoing.Id,newValue,"propagate");
+                let even = new CircuitEvent(wire.outgoing.Id,newValue,"");
                 this.eventQue.push(even)
             }
 
@@ -97,7 +97,7 @@ export class Simulator {
         }
     }
 
-    private startSimulation()
+    startSimulation()
     {
         while(this.eventQue.length != 0)
         {
@@ -107,7 +107,7 @@ export class Simulator {
         }
     }
 
-    private resetVisitedWires()
+    protected resetVisitedWires()
     {
         while(this.visitedWires.length != 0)
         {
@@ -123,11 +123,19 @@ export class Simulator {
         this.resetVisitedWires()
     }
 
-    public simulate(inputs: Map<string,boolean | string>)
+    public simulate(inputs?: Map<string,boolean | string>)
     {
-        this.setInputsMap(inputs)
+        if(inputs!)
+            this.setInputsMap(inputs)
         this.startSimulation()
         this.resetVisitedWires()
+    }
+
+    public reset()
+    {
+        this.resetVisitedWires()
+        this.wireQue = []
+        this.eventQue = []
     }
 
     public getOutputStatesArray() : Array<boolean | string>

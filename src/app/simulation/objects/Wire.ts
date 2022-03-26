@@ -25,7 +25,7 @@ export class Wire{
 
     public propagate()
     {
-        if(this.timesPropagated <= this.numberCyclesAllowed)
+        if(this.timesPropagated < this.numberCyclesAllowed)
         {
             let state = this.incoming.State
             this.outgoing.addInput(state,this.outPosition)

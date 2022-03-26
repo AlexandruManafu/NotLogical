@@ -6,11 +6,12 @@ import { OrGate } from "../gates/OrGate"
 import { AndGate } from "../gates/AndGate"
 import { XorGate } from "../gates/XorGate"
 import { NorGate } from "../gates/NorGate"
+import { NandGate } from "../gates/NandGate"
 
 export class GateFactory{
     constructor(){}
 
-    public static createGate(type : string | undefined,id : string) : Gate | InputGate
+    public static createGateShort(type : string | undefined,id : string) : Gate | InputGate
     {
 
         switch(type)
@@ -29,25 +30,24 @@ export class GateFactory{
                 return new XorGate(id)
             case "nor":
                 return new NorGate(id)
+            case "nand":
+                return new NandGate(id)
 
             default:
                 throw new Error("Invalid gate type")
         }
     }
 
-    public static createGateLongNames(longName : string, id : string)
+    public static longToShortName(gateName : string)
     {
-        let map = new Map<string,string>()
-        map.set("NotGate","not")
-        map.set("InputGate","input")
-        map.set("OutputGate","output")
-        map.set("AndGate","and")
-        map.set("OrGate","or")
-        map.set("XorGate","xor")
-        map.set("NorGate","nor")
+        return gateName.replace("Gate","").toLowerCase();
+    }
 
-        let short = map.get(longName)
-        return this.createGate(short,id)
+    public static createGate(longName : string, id : string)
+    {
+        let gateName = this.longToShortName(longName)
+
+        return this.createGateShort(gateName,id)
         
 
     }

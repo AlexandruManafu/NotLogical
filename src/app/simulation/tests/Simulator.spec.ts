@@ -70,9 +70,9 @@ describe('Simulator with no cycles with array inputs and outputs', () => {
 
     //set and reset at the same time state not allowed (race condition) 
     //reason being we do not know which wire is supposed to propagate first
-    inExpectsOut(simulator,[true,true,true],[false,false])
+    inExpectsOut(simulator,[true,true],[false,false])
     //hold, next value cannot be determined 
-    inExpectsOut(simulator,[false,true,false],["u","u"])
+    inExpectsOut(simulator,[false,false],["u","u"])
 
     console.log("SR race condition")
   });
@@ -81,9 +81,9 @@ describe('Simulator with no cycles with array inputs and outputs', () => {
 
     simulator = sequential.norSrLatch()
     //reset
-    inExpectsOut(simulator,[false,true,true],[false,true])
+    inExpectsOut(simulator,[false,true],[false,true])
     //hold
-    inExpectsOut(simulator,[false,true,false],[false,true])
+    inExpectsOut(simulator,[false,false],[false,true])
 
     console.log("SR reset")
   });
@@ -92,9 +92,9 @@ describe('Simulator with no cycles with array inputs and outputs', () => {
 
     simulator = sequential.norSrLatch()
     //set 
-    inExpectsOut(simulator,[true,true,false],[true,false])
+    inExpectsOut(simulator,[true,false],[true,false])
     //hold
-    inExpectsOut(simulator,[false,true,false],[true,false])
+    inExpectsOut(simulator,[false,false],[true,false])
 
 
     console.log("SR set")

@@ -68,11 +68,10 @@ describe('Simulator with no cycles with Map inputs and outputs', () => {
     console.log("Half adder Map input, simulations executed one after another")
   });
 
-  it("A Nor SR-Latch with inputs executed one after another E = T, S = T, R = T gives false,false the next state cannot be determined and is u,u", () => { 
+  it("A Nor SR-Latch with inputs executed one after another S = T, R = T gives false, false the next state cannot be determined and is u,u", () => { 
     simulator = sequential.norSrLatch()
 
     //Set and Reset = T, race condition
-    input.set("E",true)
     output.set("Q","u")
     output.set("Q'","u")
     inMapExpectsOut(simulator,input,output)
@@ -88,7 +87,9 @@ describe('Simulator with no cycles with Map inputs and outputs', () => {
     inMapExpectsOut(simulator,input,output)
 
     //Hold, next value cannot be determined 
-    input.set("E",false)
+    input.set("R",false)
+    input.set("S",false)
+ 
     output.set("Q","u")
     output.set("Q'","u")
     inMapExpectsOut(simulator,input,output)
