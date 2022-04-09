@@ -1,7 +1,10 @@
 import { Gate } from "./gates/Gate"
+import { Segment } from "./geometry/Segment"
 
 export class Wire{
     private timesPropagated = 0
+    public xSegments : Array<Segment> = []
+    public ySegments : Array<Segment> = []
     constructor(protected id: string, protected numberCyclesAllowed : number,
                 public incoming : Gate, public outgoing : Gate, protected outPosition : number)
     {
@@ -42,5 +45,6 @@ export class Wire{
     public disconnect()
     {
         this.outgoing.addInput("Z",this.outPosition)
+        this.outgoing.simulate()
     }
 }

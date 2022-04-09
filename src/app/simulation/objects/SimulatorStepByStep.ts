@@ -1,10 +1,6 @@
 
-import { Circuit } from "./Circuit";
 import { CircuitEvent } from "./CircuitEvent"
-import { InputGate } from "./gates/InputGate";
 import { Simulator } from "./Simulator";
-import { GateSearch } from "./utils/GateSearch";
-import { Wire } from "./Wire";
 
 export class SimulatorStepByStep extends Simulator {
 

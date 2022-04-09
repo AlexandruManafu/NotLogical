@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CircuitManipulationService } from '../../services/circuit-manipulation.service';
-import { VisualGateMoveService } from '../../services/visual-gate-move.service';
 
 @Component({
   selector: 'app-gate-create',

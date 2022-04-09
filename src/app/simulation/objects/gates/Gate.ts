@@ -4,6 +4,8 @@ export abstract class Gate {
     protected state : boolean | string = "u"
     public positionXY : Array<number> = []
     public inputs : Array<boolean | string> = []
+    public outputVisualWireCorrection = 0
+    public inputVisualWireCorrection = 0
 
     constructor(protected id : string){}
 

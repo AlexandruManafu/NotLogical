@@ -1,6 +1,7 @@
 import { Gate } from "./Gate"
 
 export class XorGate extends Gate {
+    public override outputVisualWireCorrection: number = 1
     constructor(id : string)
     {
         super(id)

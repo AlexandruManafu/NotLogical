@@ -8,6 +8,12 @@
         (click)="setTargetGate(element)"
         (mousedown) = "setTargetGate(element)"
     ></app-gate-display>
+    <app-wire-display *ngFor="let element of circuitManipulation.builder.wires"
+    [wire] = "element"
+    >
+
+    </app-wire-display>
+
 </div>
 
 <app-components-toolbar></app-components-toolbar>

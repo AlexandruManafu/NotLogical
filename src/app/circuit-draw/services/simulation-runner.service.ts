@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Circuit } from '../objects/Circuit';
-import { InputGate } from '../objects/gates/InputGate';
-import { Simulator } from '../objects/Simulator';
-import { SimulatorStepByStep } from '../objects/SimulatorStepByStep';
+import { Circuit } from 'src/app/simulation/objects/Circuit';
+import { InputGate } from 'src/app/simulation/objects/gates/InputGate';
+import { Simulator } from 'src/app/simulation/objects/Simulator';
+import { SimulatorStepByStep } from 'src/app/simulation/objects/SimulatorStepByStep';
 import { CircuitManipulationService } from './circuit-manipulation.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SimulationRunnerService {
 
   public action : string = ""
@@ -72,5 +73,6 @@ export class SimulationRunnerService {
       this.simulator.reset()
     }
     this.setSimulator("Simulator")
+    this.circuitManipulation.resetWireColors()
   }
 }

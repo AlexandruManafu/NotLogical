@@ -144,6 +144,7 @@ export class CircuitBuilder{
     {
         let targetIndex = GateSearch.getIndex(this.wires,id)
         this.wires[targetIndex].disconnect()
+        
         this.wires.splice(targetIndex, 1);
     }
 }

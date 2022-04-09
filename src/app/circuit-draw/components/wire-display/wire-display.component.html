@@ -1,0 +1,13 @@
+<div *ngFor = "let seg of wire!.xSegments;" class = "wireSegmentX"
+[style.left]=" seg.start.x + 'px'"
+[style.top] = " seg.start.y + 'px'"
+[style.width] = "seg.width +'px'"
+[ngClass]="colorClass"
+></div>
+
+<div *ngFor = "let seg of wire!.ySegments;" class = "wireSegmentY"
+[style.left]=" seg.start.x + 'px'"
+[style.top] = " seg.end.y + 'px'"
+[style.height] = "seg.height +'px'"
+[ngClass]="colorClass"
+></div>
