@@ -1,0 +1,34 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DragDropModule} from '@angular/cdk/drag-drop';
+
+import { ComponentsCreateDropdownComponent } from './components/components-create-dropdown/components-create-dropdown.component';
+import { ComponentsToolbarComponent } from './components/components-toolbar/components-toolbar.component';
+import { GateCreateComponent } from './components/gate-create/gate-create.component';
+import { GateDeleteDropComponent } from './components/gate-delete-drop/gate-delete-drop.component';
+import { GateDisplayComponent } from './components/gate-display/gate-display.component';
+import { SimulationPlayBarComponent } from './components/simulation-play-bar/simulation-play-bar.component';
+import { TestCanvasComponent } from './components/test-canvas/test-canvas.component';
+import { WireDisplayComponent } from './components/wire-display/wire-display.component';
+import { SimulationModule } from '../simulation/simulation.module';
+
+@NgModule({
+  declarations: [
+    ComponentsCreateDropdownComponent,
+    ComponentsToolbarComponent,
+    GateCreateComponent,
+    GateDeleteDropComponent,
+    GateDisplayComponent,
+    SimulationPlayBarComponent,
+    TestCanvasComponent,
+    WireDisplayComponent
+  ],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    SimulationModule
+  ],
+  exports:[
+  ]
+})
+export class CircuitDrawModule { }

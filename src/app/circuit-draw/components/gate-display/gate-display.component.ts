@@ -1,7 +1,7 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { Gate } from '../../objects/gates/Gate';
-import { CircuitManipulationService } from '../../services/circuit-manipulation.service';
+import { Gate } from 'src/app/simulation/objects/gates/Gate';
 import { SimulationRunnerService } from '../../services/simulation-runner.service';
+import { WiringDrawService } from '../../services/wiring-draw.service';
 
 @Component({
   selector: 'app-gate-display',
@@ -13,7 +13,7 @@ export class GateDisplayComponent implements OnInit {
 
   iconWidth = 0
   iconHeight = 0
-  constructor(private simulationRunner:SimulationRunnerService) { }
+  constructor(private simulationRunner:SimulationRunnerService, private wireDraw : WiringDrawService) { }
 
   ngOnInit(): void {
 
@@ -57,6 +57,7 @@ export class GateDisplayComponent implements OnInit {
         newState = true
     else if(state)
         newState = !state
+
     return newState
   }
 
@@ -74,19 +75,20 @@ export class GateDisplayComponent implements OnInit {
       if(this.simulationRunner.simulator == undefined)
         this.simulationRunner.setSimulator("Simulator")
       this.simulationRunner.simulate(this.gate!.Id,nextState)
+
+      let message = {id:this.gate!.Id,state:nextState}
+      this.wireDraw.changeWireState(message)
     }
   }
 
   setWireOutgoing(position : number)
   {
-    console.log(position)
     let id = this.gate!.Id
     this.simulationRunner.circuitManipulation.setOutgoingWiring(id,position)
   }
 
   setWireIncoming()
   {
-    console.log("inc")
     let id = this.gate!.Id
     this.simulationRunner.circuitManipulation.setIncomingWiring(id)
   }

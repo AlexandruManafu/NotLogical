@@ -1,10 +1,7 @@
 import { Point } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Gate } from '../objects/gates/Gate';
-import { InputGate } from '../objects/gates/InputGate';
-import { OutputGate } from '../objects/gates/OutputGate';
-import { ArrayUtils } from '../objects/utils/ArrayUtils';
+import { Gate } from 'src/app/simulation/objects/gates/Gate';
+import { ArrayUtils } from 'src/app/simulation/objects/utils/ArrayUtils';
 
 @Injectable({
   providedIn: 'root'

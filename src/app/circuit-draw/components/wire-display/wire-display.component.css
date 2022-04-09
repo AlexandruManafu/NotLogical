@@ -1,0 +1,18 @@
+.wireSegmentX{
+    border-style: solid;
+    width: 1ex;
+    position: absolute;
+}
+
+.wireSegmentY{
+    border-left: 1ex solid black;
+    position: absolute;
+}
+
+.wireTrue{
+    border-color: greenyellow;
+}
+
+.wireFalse{
+    border-color: red;
+}

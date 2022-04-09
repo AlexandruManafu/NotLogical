@@ -1,6 +1,7 @@
 import { Gate } from "./Gate"
 
 export class NorGate extends Gate {
+    public override outputVisualWireCorrection: number = 5
     numberInputs = 2
     constructor(id : string)
     {
