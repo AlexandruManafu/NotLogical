@@ -1,0 +1,23 @@
+<div class="formPage">
+    <div class = "loginPanel">
+        <form id="loginForm" (ngSubmit)="register()" #loginForm="ngForm">
+            <input [style.border-color]="user.invalidName()? '#E32636' : 'black'" 
+            class = "loginInput" [(ngModel)]="user.name" type="text" name="username " placeholder="Username" required>
+            <br>
+            <input [style.border-color]="user.invalidEmail() ? '#E32636' : 'black'"
+            class = "loginInput" [(ngModel)]="user.email" type="text" name="email" placeholder="Email" required email>
+            <br>
+            <input [style.border-color]="user.invalidPass() ? '#E32636' : 'black'"
+            class = "loginInput" [(ngModel)]="user.password" type="password" name="password" placeholder="Password" required>
+            <br>
+            <input [style.border-color]="user.invalidRepeat() ? '#E32636' : 'black'"
+            class = "loginInput" [(ngModel)]="user.passwordRepeat" type="password" name="passwordRepeat" placeholder="Repeat Password" required>
+            <br>
+            <button class = "submitButton" type="submit" name="submit">Register</button>
+            <br>
+            <a routerLink="/Login" routerLinkActive="active" class = "linkButton">
+            Already have an account? Login here</a>
+        </form>
+        <p class = "formErrorRed">{{message}}</p>
+    </div>
+</div>

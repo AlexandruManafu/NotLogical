@@ -1,0 +1,63 @@
+#loginForm{
+    display: block;
+    padding: 2ex 2ex;
+}
+.loginInput{
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        font-size: 16px;
+        padding: 8px 16px;
+        width: 55%;
+        height: 30%;
+        border: unset;
+        border-radius: 4px;
+        outline-color: rgb(84 105 212 / 0.5);
+        background-color: rgb(255, 255, 255);
+        border-style: solid;
+}
+
+.loginPanel{
+    margin: 0px auto;
+    width: 25%;
+    margin-top: 100px;
+    background: white;
+    border-radius: 4px;
+    padding: 3ex 3ex;
+    box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+    text-align: center;
+}
+
+.formPage{
+    position:fixed;
+    background-color: #CDCDCD;
+    height: 100%;
+    width: 100%;
+}
+
+.linkButton{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+}
+
+.submitButton{
+    border-style: none;
+    background-color: rgb(84, 105, 212);
+    color: #fff;
+    width: 33%;
+    position: relative;
+    font-weight: 600;
+    cursor: pointer;
+
+    padding: 0.7ex;
+    margin-bottom: 3ex;
+    
+}
+
+.formErrorRed{
+    color : #E32636;
+}
