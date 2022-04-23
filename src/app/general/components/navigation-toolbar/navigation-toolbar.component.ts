@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationButtonsService } from '../../services/navigation-buttons.service';
 
 @Component({
   selector: 'app-navigation-toolbar',
@@ -7,16 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navigationButtons:NavigationButtonsService) { }
 
-  buttons:string[] = ["About", "Test", "Levels", "Sign-up","Login"];
+  buttons:string[] = this.navigationButtons.buttons
 
   ngOnInit(): void {
   }
 
-  display(windowName: string): void
-  {
-    console.log("Clicked on button: "+windowName);
+  ngOnDestroy(): void {
+    this.navigationButtons.tokenSub.unsubscribe()
   }
 
 }

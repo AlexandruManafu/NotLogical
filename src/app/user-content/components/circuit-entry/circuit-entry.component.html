@@ -1,0 +1,10 @@
+<div *ngIf="this.circuitPreview!" class="auctionBorder" (click) = "selectCircuit()">
+    <img *ngIf="this.previewImageBase64.length < 30" class="auctionImage" 
+    src = "/assets/previews/defaultCircuit.PNG">
+    <img *ngIf="this.previewImageBase64.length > 30" class="auctionImage" src={{previewImageBase64}}/>
+    <p class="auctionTitle">{{circuitPreview.getShortTitle(20)}}</p>
+    <p class="auctionDate">Views: {{circuitPreview.views}}</p>
+</div>
+
+<div *ngIf="this.circuitPreview == undefined" class="auctionInvisible">
+</div>

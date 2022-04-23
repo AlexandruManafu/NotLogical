@@ -7,7 +7,6 @@ import { GeneralModule } from './general/general.module';
 import { SimulationModule } from './simulation/simulation.module';
 import { UserContentModule } from './user-content/user-content.module';
 import { CircuitDrawModule } from './circuit-draw/circuit-draw.module';
-import { LoginModule } from './login/login.module';
 import { WiringDrawService } from './circuit-draw/services/wiring-draw.service';
 import { CircuitManipulationService } from './circuit-draw/services/circuit-manipulation.service';
 
@@ -21,7 +20,6 @@ import { CircuitManipulationService } from './circuit-draw/services/circuit-mani
     GeneralModule,
     SimulationModule,
     UserContentModule,
-    LoginModule,
     CircuitDrawModule
   ],
   providers: [WiringDrawService, CircuitManipulationService],
