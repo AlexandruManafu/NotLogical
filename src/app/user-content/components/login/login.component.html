@@ -1,7 +1,7 @@
 
 <div class="formPage">
     <div class = "loginPanel">
-        <form id="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
+        <form id="loginForm" (ngSubmit)="login()">
             <input [style.border-color]="user.invalidName()? '#E32636' : 'black'" class = "loginInput" [(ngModel)]="user.name" type="text" name="username " placeholder="Username" required>
             <br>
             <input [style.border-color]="user.invalidPass()? '#E32636' : 'black'" class = "loginInput" [(ngModel)]="user.password" type="password" name="password" placeholder="Password" required>

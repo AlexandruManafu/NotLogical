@@ -1,5 +1,6 @@
 import { Gate } from "../gates/Gate";
 import { InputGate } from "../gates/InputGate";
+import { Segment } from "../geometry/Segment";
 import { GateSearch } from "../utils/GateSearch";
 import { Wire } from "../Wire";
 import { GateFactory } from "./GateFactory";
@@ -44,7 +45,8 @@ export class CircuitBuilder{
         return this;
     }
 
-    private  addWire(id : string, idIncoming : string, idOutgoing : string, outPosition : number) : void
+    private  addWire(id : string, idIncoming : string, idOutgoing : string, outPosition : number,
+    xSegments: Array<Segment>, ySegments: Array<Segment>) : void
     {
         // If no wire exists and no wire with the same outgoing exists construct and add the new wire
         try{
@@ -56,6 +58,8 @@ export class CircuitBuilder{
                 let outgoing = GateSearch.getIndex(this.gates, idOutgoing)
 
                 let wire = new Wire(id, this.numberCyclesAllowed, this.gates[incoming], this.gates[outgoing], outPosition)
+                wire.xSegments = xSegments
+                wire.ySegments = ySegments
                 let matchingWires = this.getWiresByOutput(idOutgoing, outPosition)
                 if(matchingWires.length == 0)
                 {
@@ -69,9 +73,10 @@ export class CircuitBuilder{
         throw new Error("Duplicate id, or id and outPosition: " + id)
     }
 
-    public wire(id : string, idIncoming : string, idOutgoing : string, outPosition : number = 0) : CircuitBuilder
+    public wire(id : string, idIncoming : string, idOutgoing : string, outPosition : number = 0,
+    xSegments : Array<Segment> = [], ySegments : Array<Segment> = []) : CircuitBuilder
     {
-        this.addWire(id,idIncoming,idOutgoing,outPosition)
+        this.addWire(id,idIncoming,idOutgoing,outPosition,xSegments,ySegments)
 
         return this;
     }
@@ -146,5 +151,59 @@ export class CircuitBuilder{
         this.wires[targetIndex].disconnect()
         
         this.wires.splice(targetIndex, 1);
+    }
+
+    public getNormalizedCircuit() : any
+    {
+        let object : any = {}
+        let wires = this.wires
+        let gates = this.gates
+        let normalizedGates = []
+        let normalizedWires = []
+        for(let i = 0 ; i<gates.length; i++)
+        {
+            let temp = {
+                id: gates[i].Id,
+                type: gates[i].constructor.name,
+                positionXY: gates[i].positionXY
+            }
+            normalizedGates.push(temp)
+        }
+        for(let i = 0 ; i<wires.length; i++)
+        {
+            let temp = {
+            id : wires[i].Id,
+            idIncoming : wires[i].incoming.Id,
+            idOutgoing : wires[i].outgoing.Id,
+            outPosition : wires[i].OutPosition,
+            xSegments : wires[i].xSegments,
+            ySegments : wires[i].ySegments
+            }
+            normalizedWires.push(temp)
+        }
+        object.numberCyclesAllowed = this.numberCyclesAllowed,
+        object.gates = normalizedGates
+        object.wires = normalizedWires
+        return object;
+    }
+
+    public static constructFromNormalized(object : any) : CircuitBuilder
+    {
+        let builder = new CircuitBuilder(object.numberCyclesAllowed);
+        let gates = object.gates
+        let wires  = object.wires
+
+        for(let i=0;i<gates.length;i++)
+        {
+            builder = builder.gate(gates[i].type, gates[i].id, gates[i].positionXY)
+        }
+
+        for(let i=0;i<wires.length;i++)
+        {
+            builder = builder.wire(wires[i].id, wires[i].idIncoming,
+            wires[i].idOutgoing, wires[i].outPosition, wires[i].xSegments, wires[i].ySegments)
+        }
+
+        return builder
     }
 }

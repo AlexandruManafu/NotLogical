@@ -8,7 +8,6 @@
     padding-top: 1ex;
     padding-bottom: 1ex;
     height: 8ex;
-    width: 30ex;
     border: solid;
 }
 
@@ -28,4 +27,64 @@
     margin-top: 0.5ex;
     margin-left: 3ex;
     width: 7ex;
+}
+
+.saveButton{
+    margin-top: -1.5ex;
+    margin-left: 3ex;
+    width: 7ex;
+    position:absolute;
+}
+
+.menuColapseButton
+{
+    position: absolute;
+    top: 4%;
+    right: 3%;
+    width: 4ex;
+    border-style: solid;
+    margin-top: 2ex;
+    margin-left: 2ex;
+}
+
+#circuitName{
+    border-radius: 4px;
+    outline-color: rgb(84 105 212 / 0.5);
+    border-style: solid;
+    border-color: black;
+    font-size: 16px;
+    width:55%;
+
+    margin-left: 2ex;
+    margin-top: -10ex;
+    display: inline;
+    position: sticky;
+}
+
+#options{
+    margin-top: 4ex;
+    align-items: center;
+}
+
+.blueButton
+{
+    background-color: rgb(84, 105, 212);
+    color: #fff;
+}
+
+.redButton{
+    background-color: #CD5C5C;
+    color: #fff;
+}
+
+.shareButton{
+    border-style: none;
+    position: relative;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 3ex;
+    margin-left: 2ex;
+
+    padding: 0.7ex;
+    margin-bottom: 3ex;
 }

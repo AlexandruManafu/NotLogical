@@ -58,6 +58,7 @@ export class SimulationRunnerService {
       this.action = "stepByStep started"
     }
     this.simulator!.simulate()
+    this.circuitManipulation.wireDraw.changeWireState({id:'everyWire',state:true})
   }
 
   reset()

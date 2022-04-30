@@ -154,35 +154,40 @@ export class UnaryPath{
     let pathXBackwards = wire.incoming.positionXY[0]>=wire.outgoing.positionXY[0]
     let path = new SegmentBuilder(this.cellHeight,this.cellWidth)
 
-    console.log("x distance "+xDistance)
+    //console.log("x distance "+xDistance)
     if(sameY && pathXBackwards)
     {
-      console.log("sameYBack")
+      //console.log("sameYBack")
       path = this.pathLoop(path,wire)
     }
     else if(sameY)
     {
-      console.log("sameY")
+      //console.log("sameY")
       path = this.pathStraight(path,wire)
     }
     else if(pathXBackwards)
     {
-      console.log("back")
+     // console.log("back")
+      path = this.pathBack(path,wire)
+    }
+    else if(xDistance<=(this.cellWidth/2) && wire.incoming.inputs.length == 2)
+    {
+      //console.log("up special")
       path = this.pathBack(path,wire)
     }
     else if(xDistance<=(this.cellWidth/2))
     {
-      console.log("up")
+      //console.log("up")
       path = this.pathUp(path,wire)
     }
     else
     {
-      console.log("regular")
+      //console.log("regular")
       path = this.path(path,wire)
     }
     wire.xSegments = path.xSegments
     wire.ySegments = path.ySegments
-    console.log(wire)
+    //console.log(wire)
     }catch(e)
     {
       console.log(e)

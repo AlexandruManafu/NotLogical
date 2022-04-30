@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CircuitBuilder } from 'src/app/simulation/objects/creational/CircuitBuilder';
 import { Gate } from 'src/app/simulation/objects/gates/Gate';
-import { ArrayUtils } from 'src/app/simulation/objects/utils/ArrayUtils';
 import { GateSearch } from 'src/app/simulation/objects/utils/GateSearch';
 import { VisualGateMoveService } from './visual-gate-move.service';
 import { WiringDrawService } from './wiring-draw.service';
@@ -11,10 +10,11 @@ import { WiringDrawService } from './wiring-draw.service';
 })
 export class CircuitManipulationService {
 
+  private savePath = "simulator"
   public IOGateTypes : Array<string> = ["InputGate","OutputGate"]
   public gateTypes : Array<string> = ["NotGate","OrGate","AndGate","NorGate","XorGate"]
   //"NandGate","XnorGate"
-  private index : number = 1;
+  public index : number = 1;
   public targetGate : Gate | null = null
   public targetCreateGate : string = ""
 
@@ -23,7 +23,19 @@ export class CircuitManipulationService {
   private outgoingGatePosition : number = -1;
 
   public builder = new CircuitBuilder()
-  constructor(public gateMoveService : VisualGateMoveService, private wireDraw : WiringDrawService) { }
+  constructor(public gateMoveService : VisualGateMoveService, public wireDraw : WiringDrawService) {
+    try{
+      this.loadLocalCircuit()
+    }catch(e)
+    {
+      localStorage.removeItem(this.savePath)
+    }
+   }
+
+  public setAutoSavePath(localStorageKeyName : string)
+  {
+    this.savePath = localStorageKeyName
+  }
 
   public addGate(position : any)
   {
@@ -37,19 +49,20 @@ export class CircuitManipulationService {
       this.builder = this.builder.gate(type,type+this.index,newPosition)
       this.index++
     }
+    this.saveCircuitLocally()
   }
 
   private redrawWires()
   {
-    console.log("redraw")
+    //console.log("redraw")
     let wires = this.builder.wires
     let id = this.targetGate!.Id
     let connectedWires = GateSearch.getWiresByIO(wires,id,false)
     connectedWires.push(...GateSearch.getWiresByIO(wires,id,true))
-    console.log(connectedWires)
+    //console.log(connectedWires)
     for(let i = 0;i<connectedWires.length;i++)
     {
-      console.log(connectedWires[i])
+      //console.log(connectedWires[i])
       this.wireDraw.buildPath(connectedWires[i])
     }
   }
@@ -74,6 +87,13 @@ export class CircuitManipulationService {
       this.targetGate!.positionXY=newPosition
       this.redrawWires()
     }
+    this.saveCircuitLocally()
+  }
+
+  public removeGate(id : string)
+  {
+    this.builder.removeGate(id)
+    this.saveCircuitLocally()
   }
   
   //set the outgoing gate for the new wire, create the wire if incoming is set
@@ -121,6 +141,7 @@ export class CircuitManipulationService {
     let removeId = this.incomingGateWiring + this.outgoingGateWiring + this.outgoingGatePosition
     //console.log(removeId)
     this.builder.removeWire(removeId)
+    this.saveCircuitLocally()
   }
 
   resetWiringData()
@@ -128,11 +149,33 @@ export class CircuitManipulationService {
     this.outgoingGatePosition = -1
     this.outgoingGateWiring = ""
     this.incomingGateWiring = ""
+    this.saveCircuitLocally()
   }
 
   resetWireColors()
   {
     this.wireDraw.changeWireState({id:"everyWire",state:"u"})
+  }
+
+  saveCircuitLocally()
+  {
+    let object = this.builder.getNormalizedCircuit()
+    object.gateIndex = this.index
+    let normalizedCircuit = JSON.stringify(object)
+    localStorage.setItem(this.savePath,normalizedCircuit)
+  }
+
+  public loadCircuit(normalizedCircuit : any)
+  {
+    this.index = normalizedCircuit.gateIndex == null ? 0 : normalizedCircuit.gateIndex
+    this.builder = CircuitBuilder.constructFromNormalized(normalizedCircuit)
+  }
+
+  public loadLocalCircuit()
+  {
+    let normalizedCircuit = JSON.parse(localStorage.getItem(this.savePath)!)
+    if(normalizedCircuit!)
+      this.loadCircuit(normalizedCircuit)
   }
 
 

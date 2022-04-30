@@ -11,6 +11,9 @@ import { SimulationPlayBarComponent } from './components/simulation-play-bar/sim
 import { TestCanvasComponent } from './components/test-canvas/test-canvas.component';
 import { WireDisplayComponent } from './components/wire-display/wire-display.component';
 import { SimulationModule } from '../simulation/simulation.module';
+import { FormsModule } from '@angular/forms';
+import { CircuitComponent } from './components/circuit/circuit.component';
+
 
 @NgModule({
   declarations: [
@@ -21,12 +24,14 @@ import { SimulationModule } from '../simulation/simulation.module';
     GateDisplayComponent,
     SimulationPlayBarComponent,
     TestCanvasComponent,
-    WireDisplayComponent
+    WireDisplayComponent,
+    CircuitComponent
   ],
   imports: [
     CommonModule,
     DragDropModule,
-    SimulationModule
+    SimulationModule,
+    FormsModule
   ],
   exports:[
   ]

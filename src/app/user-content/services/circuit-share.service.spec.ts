@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CircuitEntriesService } from './circuit-entries.service';
+import { CircuitShareService } from './circuit-share.service';
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 
-describe('CircuitEntriesService', () => {
-  let service: CircuitEntriesService;
+describe('CircuitShareService', () => {
+  let service: CircuitShareService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({imports: [RouterTestingModule, HttpClientTestingModule]});
-    service = TestBed.inject(CircuitEntriesService);
+    service = TestBed.inject(CircuitShareService);
   });
 
   it('should be created', () => {

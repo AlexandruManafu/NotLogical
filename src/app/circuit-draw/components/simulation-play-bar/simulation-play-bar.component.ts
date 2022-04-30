@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/user-content/services/login.service';
+import { CircuitShareService } from '../../../user-content/services/circuit-share.service';
 import { SimulationRunnerService } from '../../services/simulation-runner.service';
 
 @Component({
@@ -6,11 +10,43 @@ import { SimulationRunnerService } from '../../services/simulation-runner.servic
   templateUrl: './simulation-play-bar.component.html',
   styleUrls: ['./simulation-play-bar.component.css']
 })
-export class SimulationPlayBarComponent implements OnInit {
+export class SimulationPlayBarComponent implements OnInit,OnDestroy {
 
-  constructor(public simulationRunner : SimulationRunnerService) { }
+  circuitName = "";
+
+  targetEntry : any = null
+  targetEntrySub = new Subscription()
+
+
+  menuWidth = this.isUserLoggedIn()? 35 : 30
+  menuHeight = 8
+  buttonDegrees = 180
+
+  circuitId : null | string = null
+  idSub = new Subscription()
+
+  constructor(
+    public simulationRunner : SimulationRunnerService,
+    private loginService : LoginService,
+    private circuitShare : CircuitShareService,
+    private router : Router,
+    private activatedRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.idSub = this.activatedRoute.paramMap.subscribe(params => { 
+      this.circuitId = params.get('id'); 
+    });
+    this.targetEntrySub = this.circuitShare.targetEntryMessage.subscribe(params => {
+      if(params!)
+      {
+        this.targetEntry = params
+        this.circuitName = params.name
+      }
+    });
+  }
+  ngOnDestroy(): void {
+    this.idSub.unsubscribe()
+    this.targetEntrySub.unsubscribe()
   }
 
   resetCircuit()
@@ -31,4 +67,85 @@ export class SimulationPlayBarComponent implements OnInit {
     this.simulationRunner.simulateStepByStep()
   }
 
+  showOptions()
+  {
+    if(this.buttonDegrees != 0 && this.circuitId!)
+    {
+      this.menuHeight = 24
+      this.buttonDegrees = 0
+    }
+    else if(this.buttonDegrees != 0)
+    {
+      this.menuHeight = 20
+      this.buttonDegrees = 0
+    }
+    else
+    {
+      this.menuHeight = 8
+      this.buttonDegrees = 180
+    }
+  }
+
+  isUserLoggedIn()
+  {
+    return this.loginService.getField("user")!
+  }
+
+  saveToServer()
+  {
+    if(this.circuitName.length > 0)
+    {
+      let builder = this.simulationRunner.circuitManipulation.builder
+      let normalizedCircuit = builder.getNormalizedCircuit()
+      normalizedCircuit.gateIndex = this.simulationRunner.circuitManipulation.index
+      this.circuitShare.uploadCircuit(this.circuitName,normalizedCircuit).subscribe(
+        (response) => {
+          console.log(response)
+          if(response.body != "Circuit upload failed")
+          {
+            let circuitId = response.body
+            this.showOptions()
+            this.router.navigate(["/Circuit/"+circuitId])
+          }
+        })
+    }
+  }
+
+  shareCircuit()
+  {
+    this.circuitShare.shareCircuit(this.circuitId!).subscribe(
+      (response) => {
+        console.log(response)
+        if(response.body == "Success")
+        {
+          this.targetEntry.isPublic = true
+          this.showOptions()
+        }
+      })
+  }
+
+  unshareCircuit()
+  {
+    this.circuitShare.unshareCircuit(this.circuitId!).subscribe(
+      (response) => {
+        console.log(response)
+        if(response.body == "Success")
+        {
+          this.targetEntry.isPublic = false
+          this.showOptions()
+        }
+      })
+  }
+
+  deleteCircuit()
+  {
+    this.circuitShare.deleteCircuit(this.circuitId!).subscribe(
+      (response) => {
+        console.log(response)
+        if(response.body == "Success")
+        {
+          this.router.navigate(["/Simulator/"])
+        }
+      })
+  }
 }

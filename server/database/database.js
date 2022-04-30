@@ -41,6 +41,24 @@ class Database{
         );
     }
 
+    async update(sql, valuesArray)
+    {
+        connection.execute(
+            sql,
+            valuesArray,
+            function(err, results, fields) {
+                console.log("Update");
+                if(err != undefined && err != null)
+                {
+                    console.log("Error");
+                    console.log(err);
+                }
+                else
+                    console.log("Success");
+            }
+        );
+    }
+
     async exists(sql)
     {
         let result = await this.count(sql)
@@ -68,6 +86,27 @@ class Database{
         return result[0];
     }
 
+    async delete(sql, valuesArray)
+    {
+        let result = await connection.promise().execute(
+            sql,
+            valuesArray,
+            function(err, results, fields) {
+                console.log("Delete");
+                if(err != undefined && err != null)
+                {
+                    console.log("Error");
+                    console.log(err);
+                }
+                else
+                {
+                    console.log("Success");
+                }
+            }
+        );
+        return result;
+    }
+
     async count(sql)
     {
         let result = await this.connection.promise().query(sql);
@@ -91,6 +130,10 @@ class Database{
             let sql = "CREATE TABLE users( ";
             sql+= "id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL,";
             sql+= "email VARCHAR(128) NOT NULL, password VARCHAR(128) NOT NULL );";
+            sql = "CREATE TABLE circuit_entries( ";
+            sql+= "id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL,";
+            sql+= "ownerId int(10) NOT NULL, normalizedCircuit LONGTEXT NOT NULL ,";
+            sql+= "views int(10) NOT NULL, isPublic boolean DEFAULT false NOT NULL );";
 
             await db.query(sql);
         }

@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Gate } from 'src/app/simulation/objects/gates/Gate';
 
 import { CircuitManipulationService } from '../../services/circuit-manipulation.service';
@@ -14,7 +14,9 @@ export class TestCanvasComponent implements OnInit {
   canvasCellSizesXY = this.circuitManipulation.gateMoveService.CanvasGridSize
 
   constructor(private changeDetection : ChangeDetectorRef,
-              public circuitManipulation : CircuitManipulationService) { }
+              public circuitManipulation : CircuitManipulationService) {
+                this.circuitManipulation.setAutoSavePath("simulator")
+              }
 
 
   ngOnInit(): void {    

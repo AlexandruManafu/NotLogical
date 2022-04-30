@@ -7,7 +7,7 @@ export abstract class Gate {
     public outputVisualWireCorrection = 0
     public inputVisualWireCorrection = 0
 
-    constructor(protected id : string){}
+    constructor(public id : string){}
 
     get State()
     {

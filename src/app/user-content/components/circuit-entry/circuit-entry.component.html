@@ -4,6 +4,7 @@
     <img *ngIf="this.previewImageBase64.length > 30" class="auctionImage" src={{previewImageBase64}}/>
     <p class="auctionTitle">{{circuitPreview.getShortTitle(20)}}</p>
     <p class="auctionDate">Views: {{circuitPreview.views}}</p>
+    <p class="auctionDate">Author: {{circuitPreview.author}}</p>
 </div>
 
 <div *ngIf="this.circuitPreview == undefined" class="auctionInvisible">

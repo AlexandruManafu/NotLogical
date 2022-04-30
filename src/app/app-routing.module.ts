@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CircuitComponent } from './circuit-draw/components/circuit/circuit.component';
 import { TestCanvasComponent } from './circuit-draw/components/test-canvas/test-canvas.component';
 import { AboutComponent } from './general/components/about/about.component';
 import { PageNotFoundComponent } from './general/components/page-not-found/page-not-found.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'Login', component: LoginComponent},
   { path: 'Sign-up', component: RegisterComponent},
   { path: 'Logout', component: LogoutComponent},
+  { path: 'Circuit/:id', component: CircuitComponent},
   { path: '', component: AboutComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

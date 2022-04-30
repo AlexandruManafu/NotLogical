@@ -1,4 +1,8 @@
-<div class = "playPosition playBorder playBackground" cdkDrag>
+<div class = "playPosition playBorder playBackground"
+cdkDrag
+[style]="'height: '+menuHeight+'ex'"
+[style.width]="menuWidth+'ex'"
+>
     <img class="resetButton" (click) = "resetCircuit()"
     src="\assets\general icons\undo-arrow_freepik.png">
 
@@ -10,4 +14,22 @@
 
     <img class="simulateStep" (click) = "simulateOneStep()"
     src="\assets\general icons\next_nawicon.png"> 
+
+    <div id = "options"
+    [style.display]="buttonDegrees == 0 ? 'block' : 'none'"
+    >
+    <form>
+        <input type = "text" name = "circuitName" placeholder="Circuit Name" [(ngModel)]="circuitName" id = "circuitName">
+        <img class="saveButton" (click) = "saveToServer()"
+        src="\assets\general icons\free-icons save-file.png">
+        <br>
+        <button *ngIf="circuitId! && targetEntry! &&  !targetEntry.isPublic" class = "shareButton blueButton" (click)="shareCircuit()">Share Circuit</button>
+        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isPublic" class = "shareButton blueButton" (click) = "unshareCircuit()">Unshare Circuit</button>
+        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isOwner" class = "shareButton redButton" (click) = "deleteCircuit()">Delete Circuit</button>
+    </form>
+    </div>
+
+    <img *ngIf = "isUserLoggedIn()" class = "menuColapseButton"
+    [style.transform]="'rotate('+buttonDegrees+'deg)'"
+     src="\assets\general icons\down-arrow th studio.svg" (click)="showOptions()"/>
 </div>
