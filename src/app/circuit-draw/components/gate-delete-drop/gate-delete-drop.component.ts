@@ -15,7 +15,7 @@ export class GateDeleteDropComponent implements OnInit {
   onDrop(event:any)
   {
     let targetGate = this.circuitManipulation.targetGate!.Id
-    this.circuitManipulation.builder.removeGate(targetGate)
+    this.circuitManipulation.removeGate(targetGate)
   }
 
 }

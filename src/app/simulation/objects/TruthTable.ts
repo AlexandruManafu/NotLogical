@@ -5,14 +5,17 @@ import { ArrayUtils } from "./utils/ArrayUtils";
 export class TruthTable {
 
 
-    private defaultOutput : string | boolean = "u"
-    private combinationOutputMap = new Map<Array<boolean | string>,string|boolean>()
+    public combinationOutputMap = new Map<Array<boolean | string>,Array<string|boolean>>()
 
-    constructor(private inputs : Array<string>, private outputName : string = "")
+    constructor(
+        public inputs : Array<string>,
+        private outputName : string = "",
+        protected defaultOutput : Array<string | boolean> = ["u"]
+        )
     {
         if(inputs.length == 0)
             throw new Error("A truth table should have at least one input")
-        else
+        else if(outputName != "NONE")
             this.combinationOutputMap = this.createDefaultOutputs(inputs.length)
     }
 
@@ -49,11 +52,11 @@ export class TruthTable {
     // given n, compute and 2^(n) iterate and generate
     // if a truth table has n inputs then there are 2^n possible combinations
 
-    private createDefaultOutputs(lengthInputs : number)
+    public createDefaultOutputs(lengthInputs : number)
     {
         let nrCombinations = 2**lengthInputs
         let binLength = this.inputs.length
-        let result = new Map<Array<boolean | string>,string|boolean>()
+        let result = new Map<Array<boolean | string>,Array<string|boolean>>()
 
         for(let i = 0;i<nrCombinations;i++)
         {
@@ -94,7 +97,7 @@ export class TruthTable {
         map.forEach((value,key) =>{
             if(ArrayUtils.arraysEqual(key,combination))
             {
-                map.set(key,output)
+                map.set(key,[output])
                 valueSet = true
             }
         })
@@ -108,7 +111,7 @@ export class TruthTable {
         let map = this.combinationOutputMap
         map.forEach((value,key) =>{
             if(ArrayUtils.arraysEqual(key,combination))
-                result = value
+                result = value[0]
         })
         return result
     }
@@ -130,7 +133,7 @@ export class TruthTable {
         possibleInputs.forEach((value, key) =>{
             simulator.simulateVector(key)
             let output = simulator.getOutputStatesMap().get(targetOutput)
-            result.combinationOutputMap.set(key,output!)
+            result.combinationOutputMap.set(key,[output!])
         })
         return result
     }
@@ -142,7 +145,7 @@ export class TruthTable {
             return false
         let possibleInputs = this.combinationOutputMap
         possibleInputs.forEach((value, key) =>{
-            if(value != otherTable.getOutput(key))
+            if(value[0] != otherTable.getOutput(key))
                 result = false
         })
         return result

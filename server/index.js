@@ -15,10 +15,12 @@ require('./routes/Get')(app);
 
 app.listen(3000, function(){
     //db.createDefaultTables();
-    //let mock = mockActions;
+    let mock = mockActions;
     //mock.loginUser();
     //mock.jwtLogin();
     //mock.authenticate();
+    //mock.updateCircuitEntry()
+    //mock.shareCircuitEntry()
     console.log("Server started on port 3000");  
 
 });

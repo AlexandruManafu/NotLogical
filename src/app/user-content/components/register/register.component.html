@@ -1,6 +1,6 @@
 <div class="formPage">
     <div class = "loginPanel">
-        <form id="loginForm" (ngSubmit)="register()" #loginForm="ngForm">
+        <form id="loginForm" (ngSubmit)="register()">
             <input [style.border-color]="user.invalidName()? '#E32636' : 'black'" 
             class = "loginInput" [(ngModel)]="user.name" type="text" name="username " placeholder="Username" required>
             <br>

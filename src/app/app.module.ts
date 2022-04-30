@@ -9,6 +9,10 @@ import { UserContentModule } from './user-content/user-content.module';
 import { CircuitDrawModule } from './circuit-draw/circuit-draw.module';
 import { WiringDrawService } from './circuit-draw/services/wiring-draw.service';
 import { CircuitManipulationService } from './circuit-draw/services/circuit-manipulation.service';
+import { HttpClientService } from './user-content/services/http-client.service';
+
+import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 @NgModule({
   declarations: [
@@ -20,9 +24,11 @@ import { CircuitManipulationService } from './circuit-draw/services/circuit-mani
     GeneralModule,
     SimulationModule,
     UserContentModule,
-    CircuitDrawModule
+    CircuitDrawModule,
+    RouterTestingModule,
+    HttpClientTestingModule
   ],
-  providers: [WiringDrawService, CircuitManipulationService],
+  providers: [WiringDrawService, CircuitManipulationService, HttpClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

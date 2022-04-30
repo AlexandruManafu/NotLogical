@@ -26,7 +26,6 @@ export class WiringDrawService {
 
   public buildPath(wire : Wire)
   {
-    console.log("build")
     let outUnary = wire.outgoing.inputs.length == 1
     wire.xSegments = []
     wire.ySegments = []

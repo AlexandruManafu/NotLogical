@@ -1,4 +1,5 @@
 const User = require("./objects/User");
+const CircuitEntry = require("./objects/CircuitEntry");
 const jwt = require("jsonwebtoken");
 const env = require("dotenv");
 env.config();
@@ -49,13 +50,65 @@ class MockActions{
         let wrongToken = token.slice(0,token.length - 1);
         try{
             let user = new User();
-            user.authenticate(token);
+            let plainUser = user.authenticate(token);
             console.log("Auth mock success");
+            console.log("Username : "+plainUser.name)
         }catch(e)
         {
             console.log("Auth mock failed");
         }
 
+    }
+
+    async createCircuitEntry()
+    {
+        let normalizedCircuit = '{"numberCyclesAllowed":1,"gates":[{"id":"InputGate1","type":"InputGate","positionXY":[480,180]},{"id":"OutputGate1","type":"OutputGate","positionXY":[660,180]}],"wires":[{"id":"InputGate1OutputGate10","idIncoming":"InputGate1","idOutgoing":"OutputGate1","outPosition":0,"xSegments":[{"start":{"x":535,"y":207},"end":{"x":660,"y":207}}],"ySegments":[]}]}'
+        let user = new User();
+        user.set("name","login");
+        await user.loadIdByName();
+
+        let entry = new CircuitEntry();
+        entry
+        .set("name","mockSave")
+        .set("ownerId",user.id)
+        .set("normalizedCircuit",normalizedCircuit)
+        .save()
+        
+    }
+
+    async updateCircuitEntry()
+    {
+        let normalizedCircuit = '{"numberCyclesAllowed":1,"gates":[{"id":"InputGate1","type":"InputGate","positionXY":[480,180]},{"id":"OutputGate1","type":"OutputGate","positionXY":[660,180]}],"wires":[]}'
+        let user = new User();
+        user.set("name","login");
+        await user.loadIdByName();
+
+        this.createCircuitEntry()
+        let entry = new CircuitEntry();
+        entry
+        .set("name", user.get("name"))
+        .set("ownerId", user.id)
+        if(await entry.exists())
+        {
+            entry.update("normalizedCircuit",normalizedCircuit)
+        }  
+    }
+
+    async shareCircuitEntry()
+    {
+        let targetCircuit = 25;
+        let user = new User();
+        user.set("name","login");
+        await user.loadIdByName();
+        
+        let entry = new CircuitEntry();
+        entry
+        .setId(targetCircuit)
+        .set("ownerId", user.id)
+        if(await entry.hasProperOwnership())
+        {
+            entry.update("isPublic",true)
+        }  
     }
 }
 let mock = new MockActions();

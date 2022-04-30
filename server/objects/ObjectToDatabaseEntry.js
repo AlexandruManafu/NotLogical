@@ -7,6 +7,12 @@ class ObjectToDatabaseEntry{
 
     constructor(){}
 
+    setId(value)
+    {
+        this.id = value
+        return this;
+    }
+
     set(fieldName, value)
     {
         if(fieldName in this.fields)
@@ -47,16 +53,37 @@ class ObjectToDatabaseEntry{
         }
     }
 
+    update(fieldName, value)
+    {
+        if(this.id != 0)
+        {
+            let sql = "UPDATE " + this.tableName + " SET " + fieldName +" = ?" 
+            sql += " WHERE id = "+ this.id +";";
+            this.getDb().update(sql,[value])
+        }
+        return this
+    }
+
     async load(fieldName, searchColumn = "id", searchValue = this.id)
     {
         let sql = "SELECT " + fieldName +" FROM "+this.tableName + " WHERE "+searchColumn+" = ?;";
         let selected = await db.select(sql,[searchValue]);
-        this.fields[fieldName] = selected[0][fieldName];
+        if(fieldName == "id" && selected[0] != undefined)
+            this.id = selected[0][fieldName]
+        else if(selected[0] != undefined)
+            this.fields[fieldName] = selected[0][fieldName];
+        
+        return this;
     }
 
     getDb()
     {
         return db;
+    }
+
+    getFieldsAsObject()
+    {
+        return {...this.fields}
     }
 
 }

@@ -11,6 +11,7 @@ import { WiringDrawService } from '../../services/wiring-draw.service';
 export class GateDisplayComponent implements OnInit {
   @Input() gate : Gate | null = null
 
+  displayLabel = false
   iconWidth = 0
   iconHeight = 0
   constructor(private simulationRunner:SimulationRunnerService, private wireDraw : WiringDrawService) { }
@@ -91,6 +92,11 @@ export class GateDisplayComponent implements OnInit {
   {
     let id = this.gate!.Id
     this.simulationRunner.circuitManipulation.setIncomingWiring(id)
+  }
+
+  toggleLabel()
+  {
+    this.displayLabel = !this.displayLabel
   }
 
 }

@@ -21,6 +21,11 @@ export class Wire{
         return this.outPosition
     }
 
+    get TimesPropagated()
+    {
+        return this.timesPropagated
+    }
+
     public resetTimesPropagated()
     {
         this.timesPropagated = 0

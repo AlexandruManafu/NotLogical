@@ -15,6 +15,7 @@
     font-style: italic;
     margin-top: 2ex;
     margin-left: 10%;
+    display: inline;
 }
 .auctionBorder{
     border: 0.1ex solid #1C1C1C;
@@ -24,6 +25,7 @@
     margin-top: 5ex;
     display: inline-block;
     background-color: white;
+    padding-bottom: 2ex;
 }
 .auctionInvisible{
     display: block;

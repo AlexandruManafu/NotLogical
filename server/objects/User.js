@@ -14,6 +14,11 @@ class User extends ObjectToDatabaseEntry{
         this.tableName = "users";
     }
 
+    async loadIdByName()
+    {
+        await this.load("id","name",this.get("name"));
+    }
+
     setPassword(plainPassword)
     {
         const salt = bcrypt.genSaltSync(saltRounds);
@@ -24,24 +29,16 @@ class User extends ObjectToDatabaseEntry{
 
     async exists()
     {
-        let sql = "SELECT id FROM "+this.tableName + " WHERE name ='"+this.fields["name"]+"'";
-        return await this.getDb().exists(sql);
+        console.log(this.id)
+        await this.loadIdByName();
+        console.log(this.id)
+        return this.id > 0;
     }
 
     async validPassword(password)
     {
         await this.load("password","name",this.fields["name"]);
         return await bcrypt.compare(password,this.fields["password"]);
-    }
-
-    async login(name,password)
-    {
-        this.set("name",name);
-        userExists = await this.exists();
-        if(userExists)
-        {
-
-        }
     }
 
     getPlainObject()

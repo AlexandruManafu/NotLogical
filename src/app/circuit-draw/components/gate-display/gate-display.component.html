@@ -9,7 +9,9 @@
     <img class = "gateIcon"
     [style.width]="getWidthHeight()[0]+'px'"
     [style.height]="getWidthHeight()[1]+'px'"
-    src="\assets\logic gate icons\{{getType()}}.svg" alt="gate: {{getType()}}">
+    src="\assets\logic gate icons\{{getType()}}.svg" alt="gate: {{getType()}}"
+    (click) = "toggleLabel()"
+    >
     <p class = "IOState" 
     *ngIf="(getType() == 'OutputGate' || getType() == 'InputGate') && gate!"
     (click) = "onClickInput()"
@@ -31,5 +33,10 @@
     </div>
     <div *ngIf="getNumberInputs() == 2" (click) = "setWireIncoming()" class = "gateOutputBinary">
 
+    </div>
+    <div class = "labelForm" *ngIf = "displayLabel &&(getType() == 'InputGate' || getType() == 'OutputGate')">
+        <input 
+        [style.margin-left] = "getType() == 'InputGate'? '-230%' : '110%'"
+        [(ngModel)] = "gate.id">
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../services/search.service';
+import { CircuitEntriesService } from '../../services/circuit-entries.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,13 +9,13 @@ import { SearchService } from '../../services/search.service';
 export class SearchBarComponent implements OnInit {
 
   searchParameter = ""
-  constructor(private searchService:SearchService) { }
+  constructor(private circuitEntries : CircuitEntriesService) { }
 
   ngOnInit(): void {
   }
 
   onSearchConfirm(){
-
+    this.circuitEntries.changeSearchTerm(this.searchParameter)
   }
 
 }

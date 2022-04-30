@@ -128,7 +128,6 @@ export class BinaryPath extends UnaryPath{
       mid = new Point(mid.x - this.cellWidth/8,mid.y)
     }
     let yDistance = this.yDistance(wire)
-    console.log(yDistance)
     if(yDistance<=this.cellHeight)
     {
       return this.pathBack(path,wire)
@@ -148,25 +147,25 @@ export class BinaryPath extends UnaryPath{
     let sameX = wire.incoming.positionXY[0] == wire.outgoing.positionXY[0]
     let path = new SegmentBuilder(this.cellHeight,this.cellWidth)
 
-    console.log("x distance "+xDistance)
+    //console.log("x distance "+xDistance)
     if(sameY && pathXBackwards)
     {
-      console.log("sameYBack")
+      //console.log("sameYBack")
       path = this.pathLoop(path,wire)
     }
     else if(sameX)
     {
-      console.log("up")
+      //console.log("up")
       path = this.pathUp(path,wire)
     }
     else if(pathXBackwards)
     {
-      console.log("back")
+      //console.log("back")
       path = this.pathBack(path,wire)
     }
     else
     {
-      console.log("regular")
+      //console.log("regular")
       path = this.path(path,wire)
     }
     wire.xSegments = path.xSegments
