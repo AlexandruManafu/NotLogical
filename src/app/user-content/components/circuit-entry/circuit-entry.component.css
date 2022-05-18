@@ -1,15 +1,15 @@
-.auctionImage{
+.circuitImage{
     width: 100%;
     height: 25ex;
     object-fit: contain;
 }
-.auctionTitle{
+.circuitTitle{
     font-weight:normal;
     color:#333399;
     margin-top: 1ex;
     margin-left: 10%;
 }
-.auctionDate{
+.circuitDate{
     color: gray;
     font-weight:lighter;
     font-style: italic;
@@ -17,7 +17,7 @@
     margin-left: 10%;
     display: inline;
 }
-.auctionBorder{
+.circuitBorder{
     border: 0.1ex solid #1C1C1C;
     width: 30ex;
     border-radius: 3px;
@@ -27,7 +27,12 @@
     background-color: white;
     padding-bottom: 2ex;
 }
-.auctionInvisible{
+.circuitBorder:hover
+{
+    cursor: pointer;
+}
+
+.circuitInvisible{
     display: block;
     border: 0ex solid white;
     width: 30ex;

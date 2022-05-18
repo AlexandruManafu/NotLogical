@@ -43,4 +43,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.message = "One or more fields is invalid"
   }
 
+  login()
+  {
+    this.router.navigate(["/Login"])
+  }
+
 }

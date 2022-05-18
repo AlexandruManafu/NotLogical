@@ -1,0 +1,36 @@
+.testsContainer{
+    display: inline-block;
+
+    height: 80%;
+    width: 30%;
+    margin-left: 55%;
+    background-color: white;
+
+    padding-right: 4ex;
+    padding-bottom: 2ex;
+}
+
+.scrollable{
+    overflow-x: auto;
+    overflow-y: auto;
+    resize: both;
+}
+
+
+@media screen and (max-width: 1000px)
+{
+  .testsContainer{
+    display: block;
+    position: relative;
+
+    margin-top: 5%;
+    height: 400px;
+    width: 60%;
+    margin-left: 0;
+    background-color: white;
+
+    padding-right: 4ex;
+    padding-bottom: 2ex;
+}
+}
+

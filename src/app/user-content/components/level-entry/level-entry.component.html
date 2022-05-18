@@ -1,0 +1,13 @@
+<div *ngIf="this.levelPreview!" class="circuitBorder" (click) = "selectLevel()">
+    <img *ngIf="this.previewImageBase64.length < 30" class="circuitImage" 
+    src = "/assets/previews/defaultLevel.PNG">
+    <img *ngIf="this.previewImageBase64.length > 30" class="circuitImage" src={{previewImageBase64}}/>
+    <p class="circuitTitle">{{levelPreview.getShortTitle(20)}}</p>
+    <p class="circuitDate">Passed: {{levelPreview.correctSubmissions}}</p>
+    <p class="circuitDate">Views: {{levelPreview.views}}</p>
+    <br>
+    <p class="circuitDate">Author: {{levelPreview.author}}</p>
+</div>
+
+<div *ngIf="this.levelPreview == undefined" class="circuitInvisible">
+</div>

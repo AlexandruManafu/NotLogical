@@ -1,0 +1,22 @@
+<div class = "stage shadow levelChecklist">
+<ul>
+    <li
+    [ngClass]="properTitle()? 'check' : 'cross'"
+    > The Level has a title</li>
+
+    <li
+    [ngClass]="properInstructions()? 'check' : 'cross'"
+    > The Level has a description (instructions)</li>
+
+    <li
+    [ngClass]="properCondition()? 'check' : 'cross'"
+    > The Level has a winning condition (at least one test)</li>
+</ul>
+<br>
+<p>Before saving don't forget to test the level in the preview stage.</p>
+<br>
+<button class = "nextButton mediumButton centerButton" (click) = "saveIfValid()">Confirm Save</button>
+
+
+
+</div>

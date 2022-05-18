@@ -82,5 +82,4 @@ export class Circuit {
         return result
 
     }
-
 }

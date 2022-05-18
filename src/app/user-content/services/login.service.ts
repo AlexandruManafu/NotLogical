@@ -44,4 +44,12 @@ export class LoginService {
   {
     return localStorage.getItem(field);
   }
+
+  isUserLoggedIn() : boolean
+  {
+    let user = localStorage.getItem("user")
+    let token = localStorage.getItem("token")
+
+    return (user != undefined) && (token != undefined)
+  }
 }

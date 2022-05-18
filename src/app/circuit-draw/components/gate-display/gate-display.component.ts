@@ -54,9 +54,11 @@ export class GateDisplayComponent implements OnInit {
   computeNextState(state : boolean|string)
   {
     let newState : boolean | string = "u"
+    /*
     if(typeof state=="string")
         newState = true
     else if(state)
+    */
         newState = !state
 
     return newState
@@ -67,6 +69,8 @@ export class GateDisplayComponent implements OnInit {
     if(this.getType() != "InputGate")
       return
 
+    console.log("Input clicked")
+    console.log(this.gate)
     let state = this.gate!.State
     let simulating = this.simulationRunner.action == 'waitingForInput'
     let nextState = this.computeNextState(state)
@@ -75,9 +79,10 @@ export class GateDisplayComponent implements OnInit {
     else{
       if(this.simulationRunner.simulator == undefined)
         this.simulationRunner.setSimulator("Simulator")
+      this.simulationRunner.prepareCircuit()
       this.simulationRunner.simulate(this.gate!.Id,nextState)
 
-      let message = {id:this.gate!.Id,state:nextState}
+      let message = {id:"everyWire",state:nextState}
       this.wireDraw.changeWireState(message)
     }
   }

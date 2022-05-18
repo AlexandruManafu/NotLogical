@@ -1,6 +1,7 @@
-import { Point } from '@angular/cdk/drag-drop';
+
 import { Injectable } from '@angular/core';
 import { Gate } from 'src/app/simulation/objects/gates/Gate';
+import { Point } from 'src/app/simulation/objects/geometry/Point';
 import { ArrayUtils } from 'src/app/simulation/objects/utils/ArrayUtils';
 
 @Injectable({
@@ -62,7 +63,7 @@ export class VisualGateMoveService {
       throw new Error("Invalid number of inputs 1 or 2 expected given"+numberInputs)
   }
 
-  computeSnapPosition(position:any, numberInputs : number) : Array<number>
+  computeSnapPosition(position:any, numberInputs : number) : Point
   {
     let widthHeight = this.getWidthHeight(numberInputs)
     let x = position.x
@@ -78,25 +79,25 @@ export class VisualGateMoveService {
       y = Math.floor(position.y / widthHeight[1]) * widthHeight[1] - widthHeight[1]
     }
 
-    return  [x,y]
+    return  {x:x,y:y}
   }
 
-  isPositionOcupied(gateList : Array<Gate>, positionXY : Array<Number>)
+  isPositionOcupied(gateList : Array<Gate>, position : Point)
   {
     for(let i = 0;i<gateList.length;i++)
     {
-      if(ArrayUtils.arraysEqual(positionXY,gateList[i].positionXY))
+      if(position.x == gateList[i].position.x && position.y == gateList[i].position.y )
         return true
     }
     return false
   }
 
-  isCellOcupied(gateList : Array<Gate>,positionXY : Array<Number>)
+  isCellOcupied(gateList : Array<Gate>,position : Point)
   {
 
     for(let i = 0;i<gateList.length;i++)
     {
-      if(ArrayUtils.arraysEqual(gateList[i].positionXY,positionXY))
+      if(position.x == gateList[i].position.x && position.y == gateList[i].position.y)
         return true
       if(gateList[i].inputs.length == 2)
         return true
@@ -104,25 +105,25 @@ export class VisualGateMoveService {
     return false
   }
 
-  getGatesInCell(gateList : Array<Gate>, newPositionXY: Array<number>)
+  getGatesInCell(gateList : Array<Gate>, newPosition: Point)
   {
     let result = []
     for(let i = 0;i<gateList.length;i++)
     {
-      let x = gateList[i].positionXY[0]
-      let y = gateList[i].positionXY[1]
-      if(x > newPositionXY[0]-this.canvasGridSize[0]/2 && x < newPositionXY[0] + this.canvasGridSize[0]/2 && 
-         y > newPositionXY[1]-this.canvasGridSize[1] && y < newPositionXY[1] + this.canvasGridSize[1])
+      let x = gateList[i].position.x
+      let y = gateList[i].position.y
+      if(x > newPosition.x - this.canvasGridSize[0]/2 && x < newPosition.x + this.canvasGridSize[0]/2 && 
+         y > newPosition.y - this.canvasGridSize[1] && y < newPosition.y + this.canvasGridSize[1])
           result.push(gateList[i])
     }
     return result
   }
 
   //Given a gate check in gate list if the position is occupied by another gate 
-  public isPositionOccupied(gateList : Array<Gate>, positionXY : Array<number>, numberInputs : number)
+  public isPositionOccupied(gateList : Array<Gate>, position : Point , numberInputs : number)
   {
-    let gatesInCell = this.getGatesInCell(gateList,positionXY)
-    return this.isCellOcupied(gatesInCell,positionXY) || (numberInputs == 2 && gatesInCell.length !=0)
+    let gatesInCell = this.getGatesInCell(gateList,position)
+    return this.isCellOcupied(gatesInCell,position) || (numberInputs == 2 && gatesInCell.length !=0)
   }
 
 }

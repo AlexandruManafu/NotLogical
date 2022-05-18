@@ -14,8 +14,8 @@ export class UnaryPath{
   {
     let xMiddle = this.cellWidth/2
     let yMiddle = this.cellHeight/2
-    let x = wire.incoming.positionXY[0] + xMiddle - 5
-    let y = wire.incoming.positionXY[1] + yMiddle - 3
+    let x = wire.incoming.position.x + xMiddle - 5
+    let y = wire.incoming.position.y + yMiddle - 3
     if(wire.incoming.inputs.length == 2)
     {
       x += xMiddle/2 + 10 + wire.incoming.outputVisualWireCorrection
@@ -27,8 +27,8 @@ export class UnaryPath{
   protected getEndPoint(wire : Wire)
   {
     let yMiddle = this.cellHeight/2
-    let x = wire.outgoing.positionXY[0]
-    let y = wire.outgoing.positionXY[1] + yMiddle - 3
+    let x = wire.outgoing.position.x
+    let y = wire.outgoing.position.y + yMiddle - 3
 
     return new Point(x,y)
   }
@@ -36,14 +36,14 @@ export class UnaryPath{
   protected getXMiddlePoint(wire : Wire)
   {
     let mid = this.cellWidth/2
-    let x = (wire.outgoing.positionXY[0] + wire.incoming.positionXY[0] + mid) / 2
+    let x = (wire.outgoing.position.x + wire.incoming.position.x + mid) / 2
 
     return x
   }
   protected getYMiddlePoint(wire : Wire)
   {
     let mid = this.cellHeight
-    let y = (wire.outgoing.positionXY[1] + wire.incoming.positionXY[1] + mid) / 2 - 2.5
+    let y = (wire.outgoing.position.y + wire.incoming.position.y + mid) / 2 - 2.5
 
     return y
   }
@@ -62,15 +62,21 @@ export class UnaryPath{
     return newPath
   }
 
-  protected path(path : SegmentBuilder, wire : Wire) : SegmentBuilder
+  public path(path : SegmentBuilder, wire : Wire) : SegmentBuilder
   {
     let newPath = path
     let start = this.getStartingPoint(wire)
     newPath.Cursor = start
     let mid = new Point (this.getXMiddlePoint(wire)+1,start.y)
     let end = this.getEndPoint(wire)
+    let distance = Math.sqrt((wire.incoming.position.x-wire.outgoing.position.x)**2)
 
-    newPath = newPath.side(mid).top(end).side(end)
+    if(wire.incoming.inputs.length==2 && distance <= this.cellWidth)
+    {
+      newPath = newPath.top(end).side(end)
+    }
+    else
+      newPath = newPath.side(mid).top(end).side(end)
     
     return newPath
   }
@@ -90,7 +96,7 @@ export class UnaryPath{
 
   protected pathBack(path : SegmentBuilder, wire : Wire) : SegmentBuilder
   {
-    let pathYBackwards = wire.incoming.positionXY[1]<=wire.outgoing.positionXY[1]
+    let pathYBackwards = wire.incoming.position.y<=wire.outgoing.position.y
     let newPath = path
     let start = this.getStartingPoint(wire)
     let gap = new Point(start.x+2,start.y)
@@ -139,19 +145,19 @@ export class UnaryPath{
 
   public xDistance(wire : Wire)
   {
-    return Math.sqrt((wire.incoming.positionXY[0]-wire.outgoing.positionXY[0])**2)
+    return Math.sqrt((wire.incoming.position.x-wire.outgoing.position.x)**2)
   }
   public yDistance(wire : Wire)
   {
-    return Math.sqrt((wire.incoming.positionXY[1]-wire.outgoing.positionXY[1])**2)
+    return Math.sqrt((wire.incoming.position.y-wire.outgoing.position.y)**2)
   }
 
   public buildPath(wire : Wire)
   {
     try{
-    let sameY = wire.incoming.positionXY[1] == wire.outgoing.positionXY[1]
+    let sameY = wire.incoming.position.y == wire.outgoing.position.y
     let xDistance = this.xDistance(wire)
-    let pathXBackwards = wire.incoming.positionXY[0]>=wire.outgoing.positionXY[0]
+    let pathXBackwards = wire.incoming.position.x>=wire.outgoing.position.x
     let path = new SegmentBuilder(this.cellHeight,this.cellWidth)
 
     //console.log("x distance "+xDistance)

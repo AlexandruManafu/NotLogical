@@ -1,0 +1,45 @@
+.levelChecklist
+{
+    width: 50%;
+    max-width: 50%;
+}
+
+p{
+    margin-top: -1ex;
+}
+
+.centerButton{
+    margin-left: 30%;
+    text-align: center;
+}
+
+.roundButton{
+    border-radius: 2ex;
+    padding: 0.5ex 1ex;
+}
+
+.check:before
+{
+    content: '\2713';
+    display: inline-block;
+    color: green;
+    padding: 0 6px 0 0;
+}
+
+.cross:before
+{
+    content: 'x';
+    display: inline-block;
+    color: red;
+    padding: 0 6px 0 0;
+}
+
+ul li
+{
+    list-style-type: none;
+    font-size: 3ex;
+}
+
+p{
+    font-size: 3ex;
+}

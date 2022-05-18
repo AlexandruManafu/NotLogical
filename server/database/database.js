@@ -122,18 +122,24 @@ class Database{
         return result;
     }
 
-    async createDefaultTables(){
+    async createDefaultTables(force = false){
 
         let empty = await this.isDbEmpty();
-        if(empty)
+        if(empty || force)
         {
             let sql = "CREATE TABLE users( ";
             sql+= "id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL,";
             sql+= "email VARCHAR(128) NOT NULL, password VARCHAR(128) NOT NULL );";
-            sql = "CREATE TABLE circuit_entries( ";
+
+            sql+= "CREATE TABLE circuit_entries( ";
             sql+= "id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL,";
             sql+= "ownerId int(10) NOT NULL, normalizedCircuit LONGTEXT NOT NULL ,";
             sql+= "views int(10) NOT NULL, isPublic boolean DEFAULT false NOT NULL );";
+
+            sql+= "CREATE TABLE build_circuit_levels( ";
+            sql+= "id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL, instructions TEXT NOT NULL, ";
+            sql+= "ownerId int(10) NOT NULL, tests LONGTEXT NOT NULL, partialSolution LONGTEXT NOT NULL, ";
+            sql+= "views int(10) NOT NULL, numberCorrectSubmissions int(10) NOT NULL, isPublic boolean DEFAULT true NOT NULL );";
 
             await db.query(sql);
         }

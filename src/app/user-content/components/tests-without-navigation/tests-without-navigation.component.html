@@ -1,0 +1,28 @@
+<div *ngIf = "this.level.tests.length > 0" class = "tests">
+
+    <div class = "testWindow shadow" *ngFor="let test of this.level.tests; index as k" cdkDrag>
+
+        <p>{{test.testName}}</p>
+        <table>
+            <tr [style.background-color] = "test.passedSpecifications.length==0 ? '#CD5C5C' : 'white'">
+                <td *ngFor="let inputName of test.inputs">{{inputName}}</td>
+                <td *ngFor="let outputName of test.outputs">{{outputName}}</td>
+              </tr>
+    
+    
+            <tr *ngFor="let row of test.mapAsArray; index as i"
+            [style] = getRowBackgroundColor(test.passedSpecifications[i])
+            >
+    
+              <td *ngFor="let input of row.input; index as j" 
+              (click)="test.cycleInputValue(i,j)">{{input}}</td>
+              
+              <td *ngFor="let output of row.output; index as j" 
+              (click)="test.cycleInputValue(i,j,true)">{{output}}</td>
+            </tr>
+        </table> 
+    
+    </div>
+    
+</div>
+<h2 *ngIf = "this.level.tests.length == 0" class = "bigText centered">No Tests Attached</h2>

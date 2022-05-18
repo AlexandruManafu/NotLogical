@@ -1,10 +1,11 @@
-#searchBar {
+.searchBar {
     padding-top: 0.5ex;
     padding-bottom: 0.1ex;
     width: 30ex;
+    font-size: 2ex;
 }
 
-#searchButton{
+.searchButton{
     background-color: rgb(84, 105, 212);
     color: #fff;
     margin-left: 1ex;

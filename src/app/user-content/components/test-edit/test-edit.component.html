@@ -1,0 +1,29 @@
+<div class = "testWindow shadow" *ngIf="test!" cdkDrag>
+
+    <p>{{test.testName}}</p>
+    <table>
+        <tr>
+            <td *ngFor="let inputName of test.inputs">{{inputName}}</td>
+            <td *ngFor="let outputName of test.outputs">{{outputName}}</td>
+            <button class = "redButton" (click)="deleteTest()">X</button>
+          </tr>
+
+
+        <tr *ngFor="let row of test.mapAsArray; index as i">
+
+          <td *ngFor="let input of row.input; index as j" 
+          (click)="test.cycleInputValue(i,j)">{{input}}</td>
+          
+          <td *ngFor="let output of row.output; index as j" 
+          (click)="test.cycleInputValue(i,j,true)">{{output}}</td>
+
+          <button class = "redButton" (click)="deleteRow(i)">X</button>
+        </tr>
+        <tr>
+          <td *ngFor="let element of test.inputs"></td>
+          <td *ngFor="let element of test.outputs"></td>
+          <button class = "greenButton" (click)="addRow()">+</button>
+        </tr>
+    </table> 
+
+</div>

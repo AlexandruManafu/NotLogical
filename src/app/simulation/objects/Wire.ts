@@ -36,15 +36,19 @@ export class Wire{
         if(this.timesPropagated < this.numberCyclesAllowed)
         {
             let state = this.incoming.State
-            this.outgoing.addInput(state,this.outPosition)
-            this.outgoing.simulate()
+            if(state != this.outgoing.inputs[this.outPosition])
+            {
+                this.outgoing.addInput(state,this.outPosition)
+                this.outgoing.simulate()
+                this.timesPropagated +=1
+            }
         }
         else
         {
             this.outgoing.addInput("u",this.outPosition)
             this.outgoing.simulate()
+            this.timesPropagated +=1
         }
-        this.timesPropagated +=1
     }
 
     public disconnect()

@@ -1,5 +1,6 @@
 import { Gate } from "../gates/Gate";
 import { InputGate } from "../gates/InputGate";
+import { Point } from "../geometry/Point";
 import { Segment } from "../geometry/Segment";
 import { GateSearch } from "../utils/GateSearch";
 import { Wire } from "../Wire";
@@ -35,11 +36,11 @@ export class CircuitBuilder{
         throw new Error("Duplicate id: " + gate.Id)
     }
 
-    public gate(type : string, id : string = type, positionXY? : Array<number>): CircuitBuilder
+    public gate(type : string, id : string = type, position : Point = {x:0,y:0}): CircuitBuilder
     {
         let newGate = GateFactory.createGate(type,id)
-        if(positionXY!)
-            newGate.positionXY = positionXY
+        if(position!)
+            newGate.position = position
         this.addGate(newGate)
 
         return this;
@@ -165,7 +166,7 @@ export class CircuitBuilder{
             let temp = {
                 id: gates[i].Id,
                 type: gates[i].constructor.name,
-                positionXY: gates[i].positionXY
+                position: gates[i].position
             }
             normalizedGates.push(temp)
         }
@@ -195,7 +196,7 @@ export class CircuitBuilder{
 
         for(let i=0;i<gates.length;i++)
         {
-            builder = builder.gate(gates[i].type, gates[i].id, gates[i].positionXY)
+            builder = builder.gate(gates[i].type, gates[i].id, gates[i].position)
         }
 
         for(let i=0;i<wires.length;i++)

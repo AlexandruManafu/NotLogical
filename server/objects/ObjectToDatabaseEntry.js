@@ -26,7 +26,7 @@ class ObjectToDatabaseEntry{
             return this.fields[fieldName]
     }
 
-    save()
+    async save()
     {
         console.log(this.fields);
         if(this.id==0)
@@ -51,6 +51,11 @@ class ObjectToDatabaseEntry{
             
             db.insert(sql,valuesArray);
         }
+    }
+
+    async syncSave()
+    {
+        return await this.save();
     }
 
     update(fieldName, value)

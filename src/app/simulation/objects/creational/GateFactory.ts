@@ -7,6 +7,7 @@ import { AndGate } from "../gates/AndGate"
 import { XorGate } from "../gates/XorGate"
 import { NorGate } from "../gates/NorGate"
 import { NandGate } from "../gates/NandGate"
+import { XnorGate } from "../gates/XnorGate"
 
 export class GateFactory{
     constructor(){}
@@ -28,6 +29,8 @@ export class GateFactory{
                 return new AndGate(id)
             case "xor":
                 return new XorGate(id)
+            case "xnor":
+                return new XnorGate(id)
             case "nor":
                 return new NorGate(id)
             case "nand":
