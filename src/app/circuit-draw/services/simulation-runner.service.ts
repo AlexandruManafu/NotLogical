@@ -11,6 +11,7 @@ import { CircuitManipulationService } from './circuit-manipulation.service';
 
 export class SimulationRunnerService {
 
+  public step : number = 0;
   public action : string = ""
   simulator : Simulator | undefined = undefined;
 
@@ -20,8 +21,19 @@ export class SimulationRunnerService {
   {
     if(this.simulator!)
     {
+      console.log(this.circuitManipulation.builder)
       this.simulator.addInputEvent(id,value)
+      console.log(this.simulator)
       this.simulator.simulate()
+    }
+  }
+
+  prepareCircuit()
+  {
+    if(this.simulator!)
+    {
+      let circuit = new Circuit(this.circuitManipulation.builder)
+      this.simulator.circuit = circuit
     }
   }
 
@@ -31,11 +43,6 @@ export class SimulationRunnerService {
       this.simulator = new Simulator()
     else if(type == "SimulatorStepByStep")
       this.simulator = new SimulatorStepByStep()
-    if(this.simulator!)
-    {
-      let circuit = new Circuit(this.circuitManipulation.builder)
-      this.simulator.circuit = circuit
-    }
   }
 
   private createInputEvents()
@@ -54,11 +61,15 @@ export class SimulationRunnerService {
     if(this.action!="stepByStep started")
     {
       this.setSimulator("SimulatorStepByStep")
+      this.prepareCircuit()
       this.createInputEvents()
       this.action = "stepByStep started"
     }
+    this.step++;
     this.simulator!.simulate()
-    this.circuitManipulation.wireDraw.changeWireState({id:'everyWire',state:true})
+
+    this.circuitManipulation.wireDraw.changeWireState({id:"wires",state:true})
+
   }
 
   reset()

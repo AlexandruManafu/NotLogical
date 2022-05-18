@@ -1,0 +1,44 @@
+<div class = "grayBody"
+>
+    <div class = "stages shadow">
+        <button *ngFor = "let element of stages" (click) = "switchStage(element.id)">
+            <span class = "circleBorder">{{element.id}}.</span>
+            <span [style.text-decoration] = "stage == element.id ? 'underline' : 'none'">
+            {{element.title}}
+            </span>
+        </button>
+    </div>
+    <div *ngIf = "stage == '1'" class = "stage shadow">
+        <label for="title">Level Title :</label><br>
+        <input 
+        [style.border-color]="level.invalidName()? '#E32636' : 'black'"
+        [(ngModel)]="level.name"
+        type = "text" name = "title" class = "searchBar noInputGlow"><br><br>
+
+        <label for="levelType">Level Type: </label><br>
+        <select name = "levelType" disabled>
+            <option>Construct a Circuit given Test Tables</option>
+        </select><br><br>
+
+        <label for="instructions">Level instructions:</label><br>
+        <textarea 
+        [style.border-color]="level.invalidInstructions()? '#E32636' : 'black'"
+        [(ngModel)]="level.instructions"
+        rows="10" cols="40" name = 'instructions' class = "biggerTextArea noInputGlow">
+        </textarea>
+
+        <br><br>
+        <button 
+        [disabled]="!level.firstStageValid()"
+        class = "searchButton" (click) = "changeStage()">Next</button>
+
+        <p *ngIf="!level.firstStageValid()">One of the fields is too short</p>
+
+    </div>
+
+    <app-level-builder-condition *ngIf="stage=='2'"></app-level-builder-condition>
+    <app-level-builder-save *ngIf="stage=='5'"></app-level-builder-save>
+
+
+
+</div>

@@ -37,8 +37,8 @@ export class SimulatorStepByStep extends Simulator {
         let wire = this.wireQue.shift()
         while(wire != undefined){
 
-            console.log("Intermediary")
-            console.log(this.deepCopy())
+            //console.log("Intermediary")
+            //console.log(this.deepCopy())
 
             let prevValue = wire.outgoing.State
             wire.propagate()

@@ -56,7 +56,9 @@ export class CircuitShareService {
 
   getCircuit(circuitId : string)
   {
-    return this.httpService.get("/circuit/"+circuitId,this.loginService.getField("token")!)
+    let token = this.loginService.getField("token")
+    token = token! ? token : ""
+    return this.httpService.get("/circuit/"+circuitId,token)
   }
 
 }

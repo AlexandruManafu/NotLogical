@@ -13,6 +13,7 @@ import { WireDisplayComponent } from './components/wire-display/wire-display.com
 import { SimulationModule } from '../simulation/simulation.module';
 import { FormsModule } from '@angular/forms';
 import { CircuitComponent } from './components/circuit/circuit.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -31,9 +32,11 @@ import { CircuitComponent } from './components/circuit/circuit.component';
     CommonModule,
     DragDropModule,
     SimulationModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   exports:[
+    TestCanvasComponent
   ]
 })
 export class CircuitDrawModule { }

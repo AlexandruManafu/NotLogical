@@ -9,12 +9,14 @@ app.use(cors());
 //app.use(express.urlencoded());
 app.use(express.json());
 
-require('./routes/Post')(app);
-require('./routes/Get')(app);
+require('./routes/get/circuits')(app);
+require('./routes/post/general')(app);
+require('./routes/post/circuits')(app);
+require('./routes/post/levels')(app);
 
 
 app.listen(3000, function(){
-    //db.createDefaultTables();
+    //db.createDefaultTables(true);
     let mock = mockActions;
     //mock.loginUser();
     //mock.jwtLogin();

@@ -1,0 +1,19 @@
+.bigText{
+    font-size: xx-large;
+}
+
+.centered{
+    text-align: center;
+}
+
+.tests{
+    margin-left: 4ex;
+    margin-top: 4ex;
+}
+
+td{
+    width: 5ex;
+    border: solid;
+    text-align: center;
+    font-size: 3ex;
+}

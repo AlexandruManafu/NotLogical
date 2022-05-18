@@ -21,6 +21,7 @@
     padding-bottom: 2ex;
     width: 100%;
     background-color: #333333;
+    overflow: hidden;
   }
 
 #logo{
@@ -47,6 +48,7 @@
 @media screen and (min-width: 1400px)
 {
   #navItems{
+    left: 55%;
     width: 45%;
   }
 }
@@ -56,11 +58,11 @@
 {
   #navItems{
     left: 30%;
-    width: 80%;
+    width: 70%;
   }
 }
 /*Make margins smaller disable right allign*/
-@media screen and (max-width: 800px)
+@media screen and (max-width: 950px)
 {
   #navItems{
     position:relative;
@@ -71,7 +73,7 @@
   }
 }
 /*Make links go under eachother, display a menu button*/
-@media screen and (max-width: 710px)
+@media screen and (max-width: 850px)
 {
   .menuButtonPositioning{
     display: block;

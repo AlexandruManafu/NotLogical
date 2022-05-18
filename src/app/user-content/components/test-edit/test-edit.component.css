@@ -1,0 +1,50 @@
+.testWindow{
+    margin-top: 2%;
+    margin-left: 2%;
+    display: block;
+    position: relative;
+    width: fit-content;
+    padding: 4ex;
+    background-color: white;
+    height: fit-content;
+}
+
+th, td {
+    border:1px solid black;
+    font-size: 2.5ex;
+    text-align: center;
+  }
+td{
+  width: 4ex;
+}
+
+td:hover{
+  cursor : pointer;
+}
+
+table{
+    margin-left: auto;
+}
+
+.redButton{
+  background-color: #CD5C5C;
+  color: #fff;
+  margin-left: 1ex;
+  margin-right: 2ex;
+  font-size: large;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.greenButton{
+  background-color: green;
+  color: #fff;
+  margin-left: 1ex;
+  margin-right: 2ex;
+  font-size: large;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+

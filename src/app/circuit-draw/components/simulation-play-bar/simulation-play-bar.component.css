@@ -62,7 +62,7 @@
 }
 
 #options{
-    margin-top: 4ex;
+    margin-top: -2ex;
     align-items: center;
 }
 
@@ -87,4 +87,24 @@
 
     padding: 0.7ex;
     margin-bottom: 3ex;
+}
+
+h2{
+    text-align: center;
+    height: 6ex;
+    width: 10ex;
+    margin-left: 1ex;
+    margin-right: 1ex;
+    margin-top: -2ex;
+    display: inline-block;
+}
+
+.verticalLine{
+    display: inline-block;
+    border-left: 0.5ex solid black;
+    margin-top: -1ex;
+    margin-right: 2ex;
+    height: 10ex;
+    position: absolute;
+      
 }

@@ -1,0 +1,24 @@
+<app-test-canvas title="Level Preview" savePath="levelPreview" [loadLocalAutomatically]='load'></app-test-canvas>
+
+<app-level-builder-canvas-navigation [previousPage]="'LevelStart'" [nextPage]="'/LevelBuilder/5'">
+</app-level-builder-canvas-navigation>
+
+<div 
+class = "levelBarPosition playBorder playBackground"
+cdkDrag
+[style]="'height: '+menuHeight+'ex'"
+>
+    <h2 class = "optionsText">Level Options</h2>
+    <div *ngIf="buttonDegrees != 0">
+        <button class = "nextButton mediumButton spacesBetween" (click) = "reset()">Reset Level</button><br>
+        <button class = "nextButton mediumButton spacesBetween" (click) = "viewDescription()">View Description</button><br>
+        <button class = "nextButton mediumButton spacesBetween" (click) = "viewSpecifications()">Submit Solution</button><br>
+    </div>
+
+    <img class = "menuColapseButton"
+        [style.transform]="'rotate('+buttonDegrees+'deg)'"
+        src="\assets\general icons\down-arrow th studio.svg" (click)="showLevelOptions()"/>
+
+</div>
+
+<app-level-description-overlay [title]="getLevelTitle()" [description]="getLevelDescription()"></app-level-description-overlay>

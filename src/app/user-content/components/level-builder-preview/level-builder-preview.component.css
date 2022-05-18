@@ -1,0 +1,25 @@
+.levelBarPosition{
+    
+    position: fixed;
+    margin-top: 1%;
+    margin-left: 60%;
+    
+}
+
+.optionsText{
+    margin-top: 1ex;
+    margin-left:1.5ex;
+    width: 20ex;
+}
+
+.menuColapseButton
+{
+    position: absolute;
+    top: 4%;
+    right: 3%;
+    width: 4ex;
+    border-style: solid;
+    margin-top: 2ex;
+    margin-left: 2ex;
+}
+

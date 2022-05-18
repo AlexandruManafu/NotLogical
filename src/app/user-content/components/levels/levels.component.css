@@ -1,0 +1,17 @@
+
+.blueButton{
+    background-color: rgb(84, 105, 212);
+    color: #fff;
+    margin-left: 1ex;
+    margin-right: 2ex;
+    font-size: large;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    padding: 0.5ex;
+}
+
+.almostCenterButton
+{
+    margin-left: 10%;
+}

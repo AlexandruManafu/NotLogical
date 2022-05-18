@@ -47,4 +47,9 @@ export class LoginComponent implements OnInit {
       this.message = "One or more fields is invalid"
   }
 
+  register()
+  {
+    this.router.navigate(["/Sign-up"])
+  }
+
 }

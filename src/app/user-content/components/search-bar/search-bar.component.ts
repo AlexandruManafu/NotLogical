@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CircuitEntriesService } from '../../services/circuit-entries.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { CircuitEntriesService } from '../../services/circuit-entries.service';
 })
 export class SearchBarComponent implements OnInit {
 
+  @Input() purpose = "circuits"
   searchParameter = ""
   constructor(private circuitEntries : CircuitEntriesService) { }
 
@@ -15,7 +16,11 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSearchConfirm(){
-    this.circuitEntries.changeSearchTerm(this.searchParameter)
+    if(this.purpose == "circuits")
+      this.circuitEntries.changeSearchTerm(this.searchParameter)
+    else if(this.purpose == "levels")
+      this.circuitEntries.changeSearchTerm(this.searchParameter)
+    
   }
 
 }

@@ -44,3 +44,7 @@ p{
     font-size: 3ex;
     display: inline;
 }
+
+.border{
+    border: solid;
+}

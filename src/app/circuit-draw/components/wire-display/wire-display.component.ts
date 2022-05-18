@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, throwIfEmpty } from 'rxjs';
 import { Wire } from 'src/app/simulation/objects/Wire';
+import { SimulationRunnerService } from '../../services/simulation-runner.service';
 import { WiringDrawService } from '../../services/wiring-draw.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class WireDisplayComponent implements OnInit {
   stateMessage : {id:string,state:string|boolean} = {id:"0",state:"u"}
   colorClass = "" 
 
-  constructor(private wiringService : WiringDrawService) { 
+  constructor(
+    private wiringService : WiringDrawService) { 
     
   }
 
@@ -28,15 +30,17 @@ export class WireDisplayComponent implements OnInit {
       this.wireStatusSub = this.wiringService.wireStateMessage.subscribe(
         message => 
         {
-          if(message.id==this.wire!.incoming.Id )
+          if( message.id == "everyWire")
+          {
+            //this.stateMessage = message
+            this.stateMessage = {id : this.wire!.outgoing.Id, state : this.wire!.incoming.State}
+            this.changeColor()
+          }
+          else
           {
             this.stateMessage = message
+            this.changeColorByWire()
           }
-          else if( message.id == "everyWire")
-          {
-            this.stateMessage = {id : this.wire!.outgoing.Id, state : this.wire!.incoming.State}
-          }
-            this.changeColor()
         })
     }
   }
@@ -46,14 +50,28 @@ export class WireDisplayComponent implements OnInit {
     this.wireStatusSub.unsubscribe()
   }
 
+  changeColorByWire()
+  {
+    if(this.wire!.outgoing.State == "u" || this.wire!.TimesPropagated == 0)
+    {
+      this.colorClass = ""
+    }
+    else if(this.wire!.incoming.State == true)
+      this.colorClass =  "wireTrue"
+    else if(!this.wire!.incoming.State)
+      this.colorClass = "wireFalse"
+    else
+      this.colorClass = "";
+  }
+
   changeColor()
-  {    
+  {
     if(this.stateMessage.state == true || this.wire!.incoming.State == true)
       this.colorClass =  "wireTrue"
     else if(!this.stateMessage.state || !this.wire!.incoming.State)
       this.colorClass = "wireFalse"
     else
-      this.colorClass = ""
+      this.colorClass = "";
 
   }
 

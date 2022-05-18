@@ -1,0 +1,30 @@
+<div class = "stage shadow">
+
+    <label for="testName">Test Name:</label><br><br>
+    <input class = "searchBar noInputGlow" type="text" name = "testName" 
+    [(ngModel)]="newTest.name"
+    [style.border-color]="level.invalidTestName(newTest.name)? '#E32636' : 'black'"
+    ><br><br>
+
+    <label for="inputNames">Input:</label><br><br>
+    <input class = "searchBar noInputGlow" type="text" name = "inputNames" 
+    [(ngModel)]="newTest.inputs" placeholder="eg. A B"
+    ><br><br>
+
+    <label for="outputNames">Output:</label><br><br>
+    <input class = "searchBar noInputGlow" type="text" name = "outputNames" 
+    [(ngModel)]="newTest.outputs" placeholder="eg. Sum Carry"
+    ><br><br>
+
+    <button class = "searchButton" (click) = "addTest()">Add Test</button>
+    
+    <button class = "searchButton" (click) = "changeStage()">Next</button>
+
+    <p *ngIf="displayError">A Test needs a name and one input, output</p>
+</div>
+
+<div *ngIf = "this.level.tests.length > 0" class = "testsContainer scrollable">
+
+<app-test-edit *ngFor="let element of this.level.tests" [test] = "element"></app-test-edit>
+
+</div>

@@ -13,7 +13,7 @@ export class CircuitEntryComponent implements OnInit {
   constructor(public circuitEntriesService : CircuitEntriesService,private router : Router) { }
 
   @Input() circuitPreview : CircuitPreview | undefined = undefined
-  @Input() previewImageBase64 = "data:image/png;base64,";
+  previewImageBase64 = "data:image/png;base64,";
 
   ngOnInit(): void {
     if(this.circuitPreview!)

@@ -12,13 +12,13 @@ import { SimulationRunnerService } from '../../services/simulation-runner.servic
 })
 export class SimulationPlayBarComponent implements OnInit,OnDestroy {
 
-  circuitName = "";
+  @Input() title = "Simulator"
 
+  circuitName = "";
   targetEntry : any = null
   targetEntrySub = new Subscription()
 
-
-  menuWidth = this.isUserLoggedIn()? 35 : 30
+  menuWidth = this.isUserLoggedIn()? 55 : 50
   menuHeight = 8
   buttonDegrees = 180
 
@@ -33,6 +33,7 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
     private activatedRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.simulationRunner.reset()
     this.idSub = this.activatedRoute.paramMap.subscribe(params => { 
       this.circuitId = params.get('id'); 
     });

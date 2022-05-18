@@ -44,6 +44,11 @@
     text-decoration: underline;
 }
 
+.linkButton:hover
+{
+cursor: pointer;
+}
+
 .submitButton{
     border-style: none;
     background-color: rgb(84, 105, 212);

@@ -1,5 +1,8 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CircuitBuilder } from 'src/app/simulation/objects/creational/CircuitBuilder';
 import { Gate } from 'src/app/simulation/objects/gates/Gate';
 
 import { CircuitManipulationService } from '../../services/circuit-manipulation.service';
@@ -9,17 +12,37 @@ import { CircuitManipulationService } from '../../services/circuit-manipulation.
   templateUrl: './test-canvas.component.html',
   styleUrls: ['./test-canvas.component.css']
 })
-export class TestCanvasComponent implements OnInit {
+export class TestCanvasComponent implements OnInit, OnDestroy {
 
   canvasCellSizesXY = this.circuitManipulation.gateMoveService.CanvasGridSize
+  idSub = new Subscription()
+  id : string | null = null
+  @Input() savePath = "simulator"
+  @Input() title = "Local Circuit"
+  @Input() loadLocalAutomatically = false
 
   constructor(private changeDetection : ChangeDetectorRef,
-              public circuitManipulation : CircuitManipulationService) {
-                this.circuitManipulation.setAutoSavePath("simulator")
+              public circuitManipulation : CircuitManipulationService,
+              private activatedRoute : ActivatedRoute
+              ) {
               }
 
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this.circuitManipulation.setAutoSavePath(this.savePath)
+    this.idSub = this.activatedRoute.paramMap.subscribe(params => { 
+      this.id = params.get('id'); 
+    });
+
+    if(this.id==null && this.loadLocalAutomatically)
+    {
+      this.circuitManipulation.loadLocalCircuit();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.idSub.unsubscribe()
+    this.circuitManipulation.builder = new CircuitBuilder()
   }
 
   onDrop(event : CdkDragDrop<Gate>)
@@ -41,6 +64,6 @@ export class TestCanvasComponent implements OnInit {
   }
 
   customTB(index : number, gate : Gate) {
-     return gate.positionXY;
+     return gate.position;
   }
 }

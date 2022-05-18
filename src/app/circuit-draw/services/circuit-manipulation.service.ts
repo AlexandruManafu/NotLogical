@@ -12,7 +12,7 @@ export class CircuitManipulationService {
 
   private savePath = "simulator"
   public IOGateTypes : Array<string> = ["InputGate","OutputGate"]
-  public gateTypes : Array<string> = ["NotGate","OrGate","AndGate","NorGate","XorGate"]
+  public gateTypes : Array<string> = ["OrGate","AndGate","NorGate","NandGate","XorGate","XnorGate", "NotGate"]
   //"NandGate","XnorGate"
   public index : number = 1;
   public targetGate : Gate | null = null
@@ -23,7 +23,9 @@ export class CircuitManipulationService {
   private outgoingGatePosition : number = -1;
 
   public builder = new CircuitBuilder()
-  constructor(public gateMoveService : VisualGateMoveService, public wireDraw : WiringDrawService) {
+  constructor(
+    public gateMoveService : VisualGateMoveService,
+    public wireDraw : WiringDrawService) {
     try{
       this.loadLocalCircuit()
     }catch(e)
@@ -74,7 +76,7 @@ export class CircuitManipulationService {
     let numberInputs = this.targetGate!.inputs.length
     let newPosition = this.gateMoveService.computeSnapPosition(position,numberInputs)
     let isPositionOccupied = this.gateMoveService.isPositionOccupied(this.builder.gates,newPosition,numberInputs)
-    let outOfCanvas = newPosition[0] < 0 || newPosition[1] < 0
+    let outOfCanvas = newPosition.x < 0 || newPosition.y < 0
     if(outOfCanvas)
       this.builder.removeGate(this.targetGate!.Id)
     else if(isPositionOccupied)
@@ -84,7 +86,7 @@ export class CircuitManipulationService {
     }
     else
     {
-      this.targetGate!.positionXY=newPosition
+      this.targetGate!.position=newPosition
       this.redrawWires()
     }
     this.saveCircuitLocally()
@@ -159,6 +161,8 @@ export class CircuitManipulationService {
 
   saveCircuitLocally()
   {
+    if(this.savePath == "none")
+      return
     let object = this.builder.getNormalizedCircuit()
     object.gateIndex = this.index
     let normalizedCircuit = JSON.stringify(object)
