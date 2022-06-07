@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 require('./routes/get/circuits')(app);
+require('./routes/get/levels')(app);
 require('./routes/post/general')(app);
 require('./routes/post/circuits')(app);
 require('./routes/post/levels')(app);

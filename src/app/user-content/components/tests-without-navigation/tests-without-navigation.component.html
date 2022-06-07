@@ -5,8 +5,11 @@
         <p>{{test.testName}}</p>
         <table>
             <tr [style.background-color] = "test.passedSpecifications.length==0 ? '#CD5C5C' : 'white'">
-                <td *ngFor="let inputName of test.inputs">{{inputName}}</td>
-                <td *ngFor="let outputName of test.outputs">{{outputName}}</td>
+                <td class = "cell" *ngFor="let inputName of test.inputs">{{inputName}}</td>
+
+                <td class = "tinyCell"></td>
+
+                <td class = "cell" *ngFor="let outputName of test.outputs">{{outputName}}</td>
               </tr>
     
     
@@ -14,10 +17,12 @@
             [style] = getRowBackgroundColor(test.passedSpecifications[i])
             >
     
-              <td *ngFor="let input of row.input; index as j" 
+              <td class = "cell" *ngFor="let input of row.input; index as j" 
               (click)="test.cycleInputValue(i,j)">{{input}}</td>
+
+              <td class = "tinyCell"></td>
               
-              <td *ngFor="let output of row.output; index as j" 
+              <td class = "cell" *ngFor="let output of row.output; index as j" 
               (click)="test.cycleInputValue(i,j,true)">{{output}}</td>
             </tr>
         </table> 

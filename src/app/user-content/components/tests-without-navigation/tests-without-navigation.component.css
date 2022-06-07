@@ -11,9 +11,14 @@
     margin-top: 4ex;
 }
 
-td{
+.cell{
     width: 5ex;
     border: solid;
     text-align: center;
     font-size: 3ex;
+}
+
+.tinyCell{
+    width: 2px;
+    background-color: black;
 }

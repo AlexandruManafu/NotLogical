@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectableObservable, Subscription } from 'rxjs';
+import { LoginService } from 'src/app/general/services/login.service';
 import { Level } from '../../objects/Level';
 import { LevelManipulationService } from '../../services/level-manipulation.service';
 import { LevelShareService } from '../../services/level-share.service';
@@ -18,7 +20,8 @@ export class LevelBuilderSaveComponent implements OnInit {
   level = new Level()
   constructor(
     private levelManipulation : LevelManipulationService,
-    private levelShare : LevelShareService
+    private levelShare : LevelShareService,
+    private loginService : LoginService
     ) { }
 
   ngOnInit(): void {
@@ -40,9 +43,14 @@ export class LevelBuilderSaveComponent implements OnInit {
     return this.level.tests.length > 0 
   }
 
+  loggedIn()
+  {
+    return this.loginService.isUserLoggedIn()
+  }
+
   saveIfValid()
   {
-    if(this.level.firstStageValid() && this.properCondition())
+    if(this.level.firstStageValid() && this.properCondition() && this.loggedIn())
     {
       let partial = localStorage.getItem("levelStartCircuit")
       let object = {partial: partial, level : this.level}
@@ -53,6 +61,8 @@ export class LevelBuilderSaveComponent implements OnInit {
           console.log(response.body)
           if(response.body == "Level Upload Success")
           {
+            localStorage.removeItem("level")
+            this.removeTemporaryCircuits();
             this.levelManipulation.changeStage("Levels",true)
           }
         })

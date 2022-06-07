@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExistingUser } from "../../objects/ExistingUser";
 import { NewUser } from '../../objects/NewUser';
 import { RegisterService } from '../../services/register.service';
 
@@ -28,7 +27,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if(user.areAllInputsValid())
     {
       this.registerService.register(user).subscribe(
-        (response) => {
+        (response : any) => {
           console.log(response)
           if(response.body == user.name)
             this.router.navigate(['/Login']) 

@@ -88,8 +88,12 @@ export class TestTable{
         {
             if(target=="u")
                 this.mapAsArray[row].input[col] = true;
-            else if(target || !target)
+            else if(target == true)
                 this.mapAsArray[row].input[col] = !target
+            else if(!target)
+                this.mapAsArray[row].input[col] = "u"
+            else if(target=="*")
+                this.mapAsArray[row].input[col] = "u"
             return
      
         }
@@ -98,8 +102,12 @@ export class TestTable{
             console.log("Outputs")
             if(target=="u")
                 this.mapAsArray[row].output[col] = true;
-            else if(target || !target)
+            else if(target == true)
                 this.mapAsArray[row].output[col] = !target
+            else if(!target)
+                this.mapAsArray[row].output[col] = "u"
+            else if(target=="*")
+                this.mapAsArray[row].output[col] = "u"
             return
         }
         throw new Error("cycleInputValue invalid value in table "+target)
@@ -197,7 +205,7 @@ export class TestTable{
     private includedHashMap (expectedOutputs : Map<string,string|boolean>, allOutputs : Map<string,string|boolean>){
         let match = true;
         expectedOutputs.forEach((value,key) =>{
-            if(value != allOutputs.get(key))
+            if(value != allOutputs.get(key) || allOutputs.get(key) == "*")
             {
                 match = false
             }
@@ -209,6 +217,7 @@ export class TestTable{
     {
         let map = new Map();
             for(let i = 0; i < keys.length; i++){
+            if(values[i] != "*")
                map.set(keys[i], values[i]);
             }
             return map;
@@ -249,7 +258,7 @@ export class TestTable{
             
                 this.passedSpecifications.push(true)
             }
-            console.log(this.passedSpecifications)
+            //console.log(this.passedSpecifications)
             return true
 
         }

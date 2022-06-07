@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     if(user.areAllInputsValid())
     {
       this.loginService.login(user).subscribe(
-        (response) => {
+        (response : any) => {
           console.log(response)
           if(response.body!.length > 20)
           {

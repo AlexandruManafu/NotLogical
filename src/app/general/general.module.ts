@@ -5,6 +5,11 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AboutComponent } from './components/about/about.component';
 import { NavigationToolbarComponent } from './components/navigation-toolbar/navigation-toolbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 
@@ -12,10 +17,15 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   declarations: [
     AboutComponent,
     NavigationToolbarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginComponent,
+    RegisterComponent,
+    LogoutComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
+    FormsModule,
     AppRoutingModule
   ],
   exports: [

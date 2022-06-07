@@ -33,7 +33,7 @@ module.exports = function(app){
             await circuitEntry.load("name")
             await circuitEntry.load("views")
             circuitEntry.update("views",circuitEntry.get("views")+1)
-            circuitEntry.parseNormalizedCircuit()
+            circuitEntry.parseJsonText("normalizedCircuit")
             let response = circuitEntry.getFieldsAsObject()
             await circuitEntry.loadOwnerName()
             response.isOwner = circuitEntry.isOwner(user.name)

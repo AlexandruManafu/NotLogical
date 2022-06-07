@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LevelPreview } from '../../objects/LevelPreview';
 
 @Component({
@@ -10,7 +11,7 @@ export class LevelEntryComponent implements OnInit {
 
   @Input() levelPreview : LevelPreview | undefined = undefined
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   previewImageBase64 = "data:image/png;base64,";
 
@@ -21,7 +22,8 @@ export class LevelEntryComponent implements OnInit {
 
   selectLevel()
   {
-
+    if(this.levelPreview!)
+    this.router.navigate(["/Level/"+this.levelPreview.id])
   }
 
 }

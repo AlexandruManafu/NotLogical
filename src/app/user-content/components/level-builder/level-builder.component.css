@@ -66,6 +66,24 @@
     padding-top: 3ex;
 }
 
+.searchBar {
+    padding-top: 0.5ex;
+    padding-bottom: 0.1ex;
+    width: 30ex;
+    font-size: 2ex;
+}
+
+.searchButton{
+    background-color: rgb(84, 105, 212);
+    color: #fff;
+    margin-left: 1ex;
+    margin-right: 2ex;
+    font-size: large;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
 
 @media screen and (max-width: 1000px)
 {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClientService } from './http-client.service';
-import { LoginService } from './login.service';
+import { HttpClientService } from '../../general/services/http-client.service';
+import { LoginService } from 'src/app/general/services/login.service';
 
 @Injectable({
   providedIn: 'root'

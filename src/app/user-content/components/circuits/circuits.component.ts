@@ -48,6 +48,7 @@ export class CircuitsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.searchSub.unsubscribe()
+    this.circuitEntries.changeSearchTerm("");
   }
 
 }

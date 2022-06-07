@@ -7,8 +7,7 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
   templateUrl: './test-edit.component.html',
   styleUrls: ['./test-edit.component.css',
   "../level-builder/level-builder.component.css",
-  '../circuits/circuits.component.css',
-  "../search-bar/search-bar.component.css"]
+  '../circuits/circuits.component.css']
 })
 export class TestEditComponent implements OnInit {
 

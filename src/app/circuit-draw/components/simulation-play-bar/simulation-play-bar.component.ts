@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LoginService } from 'src/app/user-content/services/login.service';
+import { LoginService } from 'src/app/general/services/login.service';
 import { CircuitShareService } from '../../../user-content/services/circuit-share.service';
 import { SimulationRunnerService } from '../../services/simulation-runner.service';
 
@@ -18,7 +18,7 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
   targetEntry : any = null
   targetEntrySub = new Subscription()
 
-  menuWidth = this.isUserLoggedIn()? 55 : 50
+  menuWidth = this.isUserLoggedIn()? 63 : 58
   menuHeight = 8
   buttonDegrees = 180
 

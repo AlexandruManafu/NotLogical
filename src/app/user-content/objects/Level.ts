@@ -4,6 +4,7 @@ import { TestTable } from "src/app/simulation/objects/TestTable"
 
 export class Level
 {
+    id = -1
     name = ""
     instructions = ""
     circuit : Circuit | undefined = undefined
@@ -16,8 +17,10 @@ export class Level
 
     loadFromObject(object : any)
     {
+      this.id = parseInt(object.id)
       this.name = object.name
       this.instructions = object.instructions
+      this.tests = []
       for(let i = 0;i<object.tests.length;i++)
       {
         let test = new TestTable([],[],"",true)
@@ -27,7 +30,7 @@ export class Level
       this.type = object.type
     }
 
-    executeTests()
+    executeTests() : boolean
     {
       if(this.circuit!)
       {
@@ -36,8 +39,9 @@ export class Level
         {
           let testResult = this.tests[i].executeTests(simulator)
           if(!testResult)
-            break
+            return false
         }
+        return true
       }
       else{
         throw new Error("Circuit not defined")
