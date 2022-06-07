@@ -81,6 +81,30 @@ class ObjectToDatabaseEntry{
         return this;
     }
 
+    async exists()
+    {
+        let sql = "SELECT 1 FROM "+this.tableName + " WHERE id = ?";
+
+        let selectResult = await this.getDb().select(sql,[this.id]);
+        if(selectResult != undefined && selectResult[0] != undefined)
+        {
+            return true
+        }
+        return false
+    }
+
+    parseJsonText(fieldName)
+    {
+        let text = this.get(fieldName);
+        console.log(text)
+        this.set(fieldName,JSON.parse(text));
+    }
+
+    isOwner(username)
+    {
+        return username == this.ownerName
+    }
+
     getDb()
     {
         return db;

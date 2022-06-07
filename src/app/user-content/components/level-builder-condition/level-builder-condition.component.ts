@@ -8,8 +8,7 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
   styleUrls: [
   './level-builder-condition.component.css',
   "../level-builder/level-builder.component.css",
-  '../circuits/circuits.component.css',
-  "../search-bar/search-bar.component.css"
+  '../circuits/circuits.component.css'
 ]
 })
 export class LevelBuilderConditionComponent implements OnInit {

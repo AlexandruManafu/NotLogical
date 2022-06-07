@@ -53,18 +53,6 @@ class CircuitEntry extends ObjectToDatabaseEntry{
         }
     }
 
-    async exists()
-    {
-        let sql = "SELECT 1 FROM "+this.tableName + " WHERE id = ?";
-
-        let selectResult = await this.getDb().select(sql,[this.id]);
-        if(selectResult != undefined && selectResult[0] != undefined)
-        {
-            return true
-        }
-        return false
-    }
-
     async hasProperOwnership()
     {
         let id = this.id
@@ -77,12 +65,6 @@ class CircuitEntry extends ObjectToDatabaseEntry{
             return true
         }
         return false
-    }
-
-    parseNormalizedCircuit()
-    {
-        let textCircuit = this.get("normalizedCircuit");
-        this.set("normalizedCircuit",JSON.parse(textCircuit));
     }
 
     getPreviewObject()
@@ -123,11 +105,6 @@ class CircuitEntry extends ObjectToDatabaseEntry{
             }
         }
         return result
-    }
-
-    isOwner(username)
-    {
-        return username == this.ownerName
     }
 
     async delete()

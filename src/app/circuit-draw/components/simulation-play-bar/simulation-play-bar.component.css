@@ -62,7 +62,6 @@
 }
 
 #options{
-    margin-top: -2ex;
     align-items: center;
 }
 
@@ -105,6 +104,17 @@ h2{
     margin-top: -1ex;
     margin-right: 2ex;
     height: 10ex;
+    position: absolute;
+      
+}
+
+.horizontalLine{
+    display: block;
+    border-bottom: 0.5ex solid black;
+    margin-top: -4.5ex;
+    margin-right: 2ex;
+    height: 1ex;
+    width: 100%;
     position: absolute;
       
 }

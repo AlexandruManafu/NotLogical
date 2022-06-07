@@ -1,6 +1,6 @@
 <div class = "grayBody">
     <app-search-bar [purpose] = "'levels'"></app-search-bar>
-    <button *ngIf="isUserLoggedIn()" class = "blueButton almostCenterButton" (click) = "buildLevel()">New Level</button> <br>
+    <button class = "blueButton almostCenterButton" (click) = "buildLevel()">New Level</button> <br>
     <app-level-entry *ngFor="let element of levelPreviews" [levelPreview]="element"></app-level-entry>
 
 </div>

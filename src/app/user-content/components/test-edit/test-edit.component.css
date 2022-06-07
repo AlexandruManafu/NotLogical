@@ -9,13 +9,18 @@
     height: fit-content;
 }
 
-th, td {
+th{
     border:1px solid black;
     font-size: 2.5ex;
     text-align: center;
   }
-td{
+
+.cell{
   width: 4ex;
+  border:1px solid black;
+  font-size: 2.5ex;
+  text-align: center;
+
 }
 
 td:hover{
@@ -46,5 +51,10 @@ table{
   font-weight: 600;
   cursor: pointer;
   border: none;
+}
+
+.tinyCell{
+  width: 2px;
+  background-color: black;
 }
 

@@ -15,7 +15,14 @@ cdkDrag
     src="\assets\general icons\pause_feen.png">
 
     <img class="simulateStep" (click) = "simulateOneStep()"
-    src="\assets\general icons\next_nawicon.png"> 
+    src="\assets\general icons\next_nawicon.png">
+
+    <img class="simulateButton" (click) = "simulateOneStep()"
+    src="\assets\general icons\sryp_cycle.png">
+
+    <div 
+    [style.display]="buttonDegrees == 0 ? 'block' : 'none'"
+    class = "horizontalLine"></div>
 
     <div id = "options"
     [style.display]="buttonDegrees == 0 ? 'block' : 'none'"

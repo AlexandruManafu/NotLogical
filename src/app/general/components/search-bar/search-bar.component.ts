@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CircuitEntriesService } from '../../services/circuit-entries.service';
+import { CircuitEntriesService } from '../../../user-content/services/circuit-entries.service';
 
 @Component({
   selector: 'app-search-bar',

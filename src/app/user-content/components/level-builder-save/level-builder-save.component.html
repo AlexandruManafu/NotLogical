@@ -11,6 +11,10 @@
     <li
     [ngClass]="properCondition()? 'check' : 'cross'"
     > The Level has a winning condition (at least one test)</li>
+
+    <li
+    [ngClass]="loggedIn()? 'check' : 'cross'"
+    > Author is logged in</li>
 </ul>
 <br>
 <p>Before saving don't forget to test the level in the preview stage.</p>

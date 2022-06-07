@@ -7,7 +7,7 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
 @Component({
   selector: 'app-level-builder',
   templateUrl: './level-builder.component.html',
-  styleUrls: ['./level-builder.component.css',"../search-bar/search-bar.component.css"]
+  styleUrls: ['./level-builder.component.css']
 })
 export class LevelBuilderComponent implements OnInit {
 

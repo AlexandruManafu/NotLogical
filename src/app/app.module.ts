@@ -9,7 +9,7 @@ import { UserContentModule } from './user-content/user-content.module';
 import { CircuitDrawModule } from './circuit-draw/circuit-draw.module';
 import { WiringDrawService } from './circuit-draw/services/wiring-draw.service';
 import { CircuitManipulationService } from './circuit-draw/services/circuit-manipulation.service';
-import { HttpClientService } from './user-content/services/http-client.service';
+import { HttpClientService } from './general/services/http-client.service';
 
 
 
