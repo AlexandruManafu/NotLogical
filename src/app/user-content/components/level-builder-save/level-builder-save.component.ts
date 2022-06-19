@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectableObservable, Subscription } from 'rxjs';
+import { CircuitManipulationService } from 'src/app/circuit-draw/services/circuit-manipulation.service';
 import { LoginService } from 'src/app/general/services/login.service';
 import { Level } from '../../objects/Level';
 import { LevelManipulationService } from '../../services/level-manipulation.service';
@@ -21,7 +22,8 @@ export class LevelBuilderSaveComponent implements OnInit {
   constructor(
     private levelManipulation : LevelManipulationService,
     private levelShare : LevelShareService,
-    private loginService : LoginService
+    private loginService : LoginService,
+    private circuitManipulation : CircuitManipulationService
     ) { }
 
   ngOnInit(): void {
@@ -52,7 +54,11 @@ export class LevelBuilderSaveComponent implements OnInit {
   {
     if(this.level.firstStageValid() && this.properCondition() && this.loggedIn())
     {
-      let partial = localStorage.getItem("levelStartCircuit")
+      let partial = localStorage.getItem("newLevelPartialCircuit")
+      if(partial == null || partial == undefined)
+      {
+        partial = this.circuitManipulation.getEmptyCircuit()
+      }
       let object = {partial: partial, level : this.level}
       //console.log(object)
 
@@ -61,7 +67,6 @@ export class LevelBuilderSaveComponent implements OnInit {
           console.log(response.body)
           if(response.body == "Level Upload Success")
           {
-            localStorage.removeItem("level")
             this.removeTemporaryCircuits();
             this.levelManipulation.changeStage("Levels",true)
           }
@@ -71,8 +76,9 @@ export class LevelBuilderSaveComponent implements OnInit {
 
   removeTemporaryCircuits()
   {
-        localStorage.removeItem("levelStartCircuit")
-        localStorage.removeItem("levelPreview")
+        localStorage.removeItem("newLevel")
+        localStorage.removeItem("newLevelCircuit")
+        localStorage.removeItem("newLevelPartialCircuit")
   }
 
 

@@ -66,9 +66,9 @@ export class WireDisplayComponent implements OnInit {
 
   changeColor()
   {
-    if(this.stateMessage.state == true || this.wire!.incoming.State == true)
+    if( this.wire!.incoming.State == true)
       this.colorClass =  "wireTrue"
-    else if(!this.stateMessage.state || !this.wire!.incoming.State)
+    else if( !this.wire!.incoming.State)
       this.colorClass = "wireFalse"
     else
       this.colorClass = "";

@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 import { LevelEntryComponent } from './level-entry.component';
 
@@ -9,7 +11,7 @@ describe('LevelEntryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[RouterModule], 
+      imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [ LevelEntryComponent ]
     })
     .compileComponents();

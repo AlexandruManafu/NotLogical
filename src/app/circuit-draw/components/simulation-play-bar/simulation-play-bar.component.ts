@@ -18,7 +18,7 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
   targetEntry : any = null
   targetEntrySub = new Subscription()
 
-  menuWidth = this.isUserLoggedIn()? 63 : 58
+  menuWidth = this.isUserLoggedIn()? 65 : 60
   menuHeight = 8
   buttonDegrees = 180
 
@@ -48,6 +48,8 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.idSub.unsubscribe()
     this.targetEntrySub.unsubscribe()
+    if(this.targetEntry!)
+    this.targetEntry = null
   }
 
   resetCircuit()
@@ -66,6 +68,16 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
   simulateOneStep()
   {
     this.simulationRunner.simulateStepByStep()
+  }
+
+  nextInputs()
+  {
+    this.simulationRunner.nextInputs(1)
+  }
+
+  previousInputs()
+  {
+    this.simulationRunner.nextInputs(-1)
   }
 
   showOptions()
@@ -145,7 +157,7 @@ export class SimulationPlayBarComponent implements OnInit,OnDestroy {
         console.log(response)
         if(response.body == "Success")
         {
-          this.router.navigate(["/Simulator/"])
+          this.router.navigate(["/Circuits/"])
         }
       })
   }

@@ -36,7 +36,7 @@ module.exports = function(app){
             circuitEntry.parseJsonText("normalizedCircuit")
             let response = circuitEntry.getFieldsAsObject()
             await circuitEntry.loadOwnerName()
-            response.isOwner = circuitEntry.isOwner(user.name)
+            response.isOwner = circuitEntry.isOwner(user.get("name"))
             response.ownerId = 0
             console.log(response)  
             res.send(response)

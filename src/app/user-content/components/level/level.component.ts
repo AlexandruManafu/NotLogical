@@ -15,6 +15,10 @@ import { OverlayToggleService } from '../../services/overlay-toggle.service';
 export class LevelComponent implements OnInit {
 
   @Input() simulationBarTitle = "Shared Level"
+  @Input() levelPath = "level"
+  @Input() levelCircuitPath = "levelCircuit"
+  @Input() levelPartialCircuitPath = "levelPartialCircuit"
+
   load = false
   buttonDegrees = 0
   menuHeight = 7
@@ -29,11 +33,10 @@ export class LevelComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    let previewCircuit = localStorage.getItem("levelPreview")
-    let levelStart = localStorage.getItem("levelStartCircuit")
+    let previewCircuit = localStorage.getItem(this.levelCircuitPath)
+    let levelStart = localStorage.getItem(this.levelPartialCircuitPath)
     if((previewCircuit == undefined && levelStart!) || (previewCircuit! && JSON.parse(previewCircuit!).gates.length == 0 && levelStart!))
     {
-      console.log("here")
       this.circuitManipulation.loadCircuit(JSON.parse(levelStart))
     }
     else if(previewCircuit!)
@@ -41,6 +44,9 @@ export class LevelComponent implements OnInit {
       this.circuitManipulation.loadCircuit(JSON.parse(previewCircuit!))
     }
     console.log(this.circuitManipulation.builder)
+
+    this.levelManipulation.levelPath = this.levelPath
+    this.levelManipulation.loadLocalLevel()
   }
 
   getLevelTitle()
@@ -69,11 +75,11 @@ export class LevelComponent implements OnInit {
 
   reset()
   {
-    let normalizedCircuit = localStorage.getItem("levelStartCircuit")
+    let normalizedCircuit = localStorage.getItem(this.levelPartialCircuitPath)
     if(normalizedCircuit!)
     {
       this.circuitManipulation.loadCircuit(JSON.parse(normalizedCircuit))
-      localStorage.setItem("levelPreview",normalizedCircuit)
+      localStorage.setItem(this.levelCircuitPath,normalizedCircuit)
     }
 
     this.showLevelOptions()
@@ -93,8 +99,8 @@ export class LevelComponent implements OnInit {
     let isCorrect = level.executeTests()
     this.wireDraw.changeWireState({id:"everyWire",state:"u"})
     let levelAsString = JSON.stringify(level)
-    localStorage.setItem("level",levelAsString)
-    this.windowManager.openNewWindow("LevelTests")
+    localStorage.setItem(this.levelPath,levelAsString)
+    this.windowManager.openNewWindow("LevelTests/"+this.levelPath)
     this.showLevelOptions()
     if(isCorrect && level.id >= 0)
     {

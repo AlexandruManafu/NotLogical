@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 
 
 
@@ -20,7 +21,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    LogoutComponent
+    LogoutComponent,
+    ImageSliderComponent
   ],
   imports: [
     HttpClientModule,

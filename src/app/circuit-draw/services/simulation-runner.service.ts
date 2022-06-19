@@ -14,6 +14,7 @@ export class SimulationRunnerService {
   public step : number = 0;
   public action : string = ""
   simulator : Simulator | undefined = undefined;
+  public currentInputSum = -1
 
   constructor(public circuitManipulation:CircuitManipulationService) {}
 
@@ -56,7 +57,18 @@ export class SimulationRunnerService {
     }
   }
 
-  simulateStepByStep()
+  private createInputEventsVector(vector : Array<boolean|string>)
+  {
+    let inputGates : Array<InputGate> = []
+    if(this.simulator!)
+      inputGates  = this.simulator.circuit!.getInputs()
+    for(let i=0;i<inputGates.length;i++)
+    {
+      this.simulator!.addInputEvent(inputGates[i].Id,vector[i])
+    }
+  }
+
+  simulateStepByStep(colorWires = true)
   {
     if(this.action!="stepByStep started")
     {
@@ -68,7 +80,8 @@ export class SimulationRunnerService {
     this.step++;
     this.simulator!.simulate()
 
-    this.circuitManipulation.wireDraw.changeWireState({id:"wires",state:true})
+    if(colorWires)
+      this.circuitManipulation.wireDraw.changeWireState({id:"wires",state:false})
 
   }
 
@@ -84,7 +97,32 @@ export class SimulationRunnerService {
     {
       this.simulator.reset()
     }
+    this.currentInputSum = -1
     this.setSimulator("Simulator")
     this.circuitManipulation.resetWireColors()
+  }
+
+  nextInputs(arg : number)
+  {
+    let temp = new Circuit(this.circuitManipulation.builder)
+    let vectorAndSum = temp.getNextVector(this.currentInputSum,arg)
+    this.currentInputSum = vectorAndSum.sum
+
+    console.log(vectorAndSum.sum)
+    if(this.action!= "" && this.action!= "stepByStep started" && this.simulator!)
+    {
+      this.prepareCircuit()
+      this.simulator.simulateVector(vectorAndSum.vector)
+      this.circuitManipulation.wireDraw.changeWireState({id:"everyWire",state:true})
+    }
+    else
+    {
+      this.setSimulator("SimulatorStepByStep")
+      this.prepareCircuit()
+      this.createInputEventsVector(vectorAndSum.vector)
+      this.action="stepByStep started"
+      this.simulator!.setInputValues()
+      console.log(this.simulator)
+    }
   }
 }

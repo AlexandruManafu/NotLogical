@@ -159,4 +159,15 @@ export class Simulator {
         }
         return result
     }
+
+    //Set without removing the events
+    public setInputValues()
+    {
+        for(let i=0;i<this.eventQue.length;i++)
+        {
+            let event = this.eventQue[i]
+            if(event.action == "input")
+                this.circuit!.setInput(event.componentId,event.newValue)
+        }
+    }
 }

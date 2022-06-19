@@ -182,5 +182,13 @@ export class CircuitManipulationService {
       this.loadCircuit(normalizedCircuit)
   }
 
+  public getEmptyCircuit()
+  {
+    let builder = new CircuitBuilder()
+    let object = builder.getNormalizedCircuit()
+    object.gateIndex = 1 
+    return object
+  }
+
 
 }

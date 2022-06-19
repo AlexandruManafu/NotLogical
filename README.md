@@ -11,7 +11,7 @@ Install Node
 
 Install Angular
 
-	Install cdk in the angular project
+	npm install @angular/cdk
 	
 Install Express
 

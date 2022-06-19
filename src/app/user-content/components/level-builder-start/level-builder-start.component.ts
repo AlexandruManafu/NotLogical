@@ -9,9 +9,12 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
 export class LevelBuilderStartComponent implements OnInit {
 
   load = true
+  levelPath = "newLevel"
   constructor(private levelManipulation: LevelManipulationService) { }
 
   ngOnInit(): void {
+    this.levelManipulation.levelPath = this.levelPath
+    this.levelManipulation.loadLocalLevel()
   }
 
   nextStage()

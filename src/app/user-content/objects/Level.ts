@@ -28,6 +28,7 @@ export class Level
         this.tests.push(test)
       }
       this.type = object.type
+      console.log(this)
     }
 
     executeTests() : boolean

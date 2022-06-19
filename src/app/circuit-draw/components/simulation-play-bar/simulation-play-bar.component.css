@@ -118,3 +118,8 @@ h2{
     position: absolute;
       
 }
+
+.flipImage
+{
+    transform: rotate(180deg);
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Level } from '../../objects/Level';
 import { LevelManipulationService } from '../../services/level-manipulation.service';
 
@@ -11,7 +11,7 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
   '../circuits/circuits.component.css'
 ]
 })
-export class LevelBuilderConditionComponent implements OnInit {
+export class LevelBuilderConditionComponent implements OnInit, OnDestroy {
 
   displayError = false
   level : Level = new Level()
@@ -22,7 +22,13 @@ export class LevelBuilderConditionComponent implements OnInit {
 
   ngOnInit(): void {
     this.level = this.levelManipulation.level
+    this.levelManipulation.saveLocalLevel()
   }
+
+  ngOnDestroy(): void {
+    this.levelManipulation.saveLocalLevel()
+  }
+
 
   changeStage()
   {

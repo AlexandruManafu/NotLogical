@@ -19,5 +19,35 @@ export class ArrayUtils{
             arr.splice(index, 1);
         }
     }
+
+    public static binaryStringToArray(word : string, length : number)
+    {
+        let result = []
+
+        for(let i = 0;i<length - word.length;i++)
+        {
+            result.push(false)
+        }
+        for(let i = 0;i<word.length;i++)
+        {
+            if(word[i] == '0')
+                result.push(false)
+            else if(word[i] == '1')
+                result.push(true)
+            else
+                throw new Error("binaryStringToArray unexpected letter, 0 or 1 allowed, given "+ word[i])
+        }
+        return result;
+    }
+
+    public static getMaximumNumberBinary(length : number)
+    {
+        let result = 0
+        for(let i = 0;i<length ;i++)
+        {
+            result += 2**(i)
+        }
+        return result;
+    }
     
 }
