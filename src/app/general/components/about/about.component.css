@@ -6,3 +6,12 @@
     padding-left: 5ex;
     padding-top: 3ex;
 }
+
+.center{
+    text-align: center;
+}
+
+.underline{
+    font-size: 3ex;
+    text-decoration: underline;
+}

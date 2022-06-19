@@ -1,0 +1,32 @@
+.inline{
+    display: inline-block;
+}
+
+.flipImage
+{
+    transform: rotate(180deg);
+}
+
+.smallPadding{
+    padding: 0 2ex;
+}
+
+.blackDot {
+    background-color: black;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-left:1ex;
+}
+
+.greenDot {
+    background-color: green;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-left: 1ex;
+}
+
+.marginRight{
+    margin-right: 1ex;
+}

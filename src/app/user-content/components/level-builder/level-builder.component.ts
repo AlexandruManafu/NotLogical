@@ -51,6 +51,8 @@ export class LevelBuilderComponent implements OnInit {
     });
 
     this.level = this.levelManipulation.level
+    this.levelManipulation.levelPath = "newLevel"
+    this.levelManipulation.loadLocalLevel()
   }
 
   changeStage()

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { NavigationButtonsService } from 'src/app/general/services/navigation-buttons.service';
 import { TestTable } from 'src/app/simulation/objects/TestTable';
 import { Level } from '../../objects/Level';
@@ -12,24 +14,35 @@ import { LevelManipulationService } from '../../services/level-manipulation.serv
   '../level-builder-condition/level-builder-condition.component.css'
 ]
 })
-export class TestsWithoutNavigationComponent implements OnInit {
+export class TestsWithoutNavigationComponent implements OnInit, OnDestroy {
 
   level = new Level()
+  levelPath : string | null = "level"
+  levelPathSub = new Subscription()
 
   constructor(
     private navigationButtons : NavigationButtonsService,
-    private levelManipulation : LevelManipulationService
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
     this.navigationButtons.changeDisplayNavigation(false)
-    this.loadLocalLevel()
-    console.log(this.level)
+    //console.log(this.level)
+    this.levelPathSub = this.activatedRoute.paramMap.subscribe(params => { 
+      this.levelPath = params.get('id'); 
+      console.log(this.levelPath)
+      if(this.levelPath!)
+        this.loadLocalLevel()
+    });
+  }
+
+  ngOnDestroy(): void {
+    
   }
 
   loadLocalLevel()
   {
-    let object = localStorage.getItem("level")
+    let object = localStorage.getItem(this.levelPath!)
     if(object!)
     {
       object = JSON.parse(object)

@@ -15,10 +15,11 @@ import { LoginComponent } from './general/components/login/login.component';
 import { LogoutComponent } from './general/components/logout/logout.component';
 import { RegisterComponent } from './general/components/register/register.component';
 import { TestsWithoutNavigationComponent } from './user-content/components/tests-without-navigation/tests-without-navigation.component';
+import { LocalCircuitComponent } from './circuit-draw/components/local-circuit/local-circuit.component';
 
 const routes: Routes = [
   { path: 'About', component: AboutComponent },
-  { path: 'Simulator', component: TestCanvasComponent },
+  { path: 'Simulator', component: LocalCircuitComponent },
   { path: 'Circuits', component: CircuitsComponent},
   { path: 'Login', component: LoginComponent},
   { path: 'Sign-up', component: RegisterComponent},
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'LevelBuilder/:stage', component: LevelBuilderComponent},
   { path: 'LevelStart', component: LevelBuilderStartComponent},
   { path: 'LevelPreview', component: LevelBuilderPreviewComponent},
-  { path: 'LevelTests', component: TestsWithoutNavigationComponent},
+  { path: 'LevelTests/:id', component: TestsWithoutNavigationComponent},
   { path: 'Level/:id', component: LevelRemoteComponent},
   { path: '', component: AboutComponent },
   { path: '**', component: PageNotFoundComponent },

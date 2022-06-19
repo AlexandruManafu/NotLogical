@@ -44,7 +44,10 @@ export class GateCreateComponent implements OnInit {
 
   public longToShortName(gateName : string)
   {
+    if(gateName == "InputGate" || gateName == "OutputGate")
     return gateName.replace("Gate","");
+    else
+    return gateName.replace("Gate","").toUpperCase();
   }
 
 }

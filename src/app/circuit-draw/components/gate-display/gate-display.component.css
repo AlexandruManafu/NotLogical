@@ -18,6 +18,7 @@ div{
     margin-top: -70%;
     position: relative;
     font-size: 3ex;
+    cursor: pointer;
 }
 
 .middleInput:hover, .topInput:hover, .bottomInput:hover {

@@ -1,0 +1,15 @@
+<ul>
+    <img data-seq class="feature" src="\assets\slides\{{slide.path}}" height="250" />
+    <h2 data-seq class="title">{{slide.title}}</h2>
+    
+    <button type="button" class="inline">
+      <img class = "flipImage" src="\assets\general icons\google_right-chevron.png" width="20ex" alt="Previous" (click)="previous()"  />
+    </button>
+  
+  <div *ngFor="let element of slides;index as i" [ngClass]="getNavDotClass(i)"></div>
+  <div class="marginRight inline"></div>
+  
+  <button type="button" class="inline">
+      <img src="\assets\general icons\google_right-chevron.png" width="20ex" alt="Next" (click)="next()" />
+  </button>
+</ul>

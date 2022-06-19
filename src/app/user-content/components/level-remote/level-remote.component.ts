@@ -21,6 +21,7 @@ export class LevelRemoteComponent implements OnInit, OnDestroy {
 
   idSub = new Subscription()
   id : string | null = null
+  loaded : boolean = false;
 
 
   ngOnInit(): void {
@@ -30,8 +31,6 @@ export class LevelRemoteComponent implements OnInit, OnDestroy {
 
     if(this.id!)
     {
-      console.log(this.id)
-      console.log(this.levelShare.getLevel(this.id))
       //get circuit from server
       try{
       this.levelShare.getLevel(this.id).subscribe(
@@ -41,15 +40,19 @@ export class LevelRemoteComponent implements OnInit, OnDestroy {
           if(obj.body != "GET circuit Failed" && obj.body != "No permissions")
           {
             let content = JSON.parse(JSON.stringify(response))
-            localStorage.setItem("levelStartCircuit", JSON.stringify(content.partialSolution))
+            let levelStartPath = this.levelManipulation.levelPartialCircuitPath
+            localStorage.setItem(levelStartPath, JSON.stringify(content.partialSolution))
 
-            this.levelManipulation.level.loadFromObject(
-            {
-              id: content.id,
-              name: content.name,
-              instructions : content.instructions,
-              tests: content.tests
-            })
+            console.log(content)
+            this.levelManipulation.level.id = content.id
+            this.levelManipulation.level.name = content.name,
+            this.levelManipulation.level.instructions = content.instructions,
+            this.levelManipulation.level.tests = content.tests,
+            this.levelManipulation.saveLocalLevel()
+            this.loaded = true
+          }
+          else{
+            this.loaded = false;
           }
         })
       }catch(e)

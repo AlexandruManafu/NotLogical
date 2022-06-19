@@ -14,6 +14,7 @@ import { SimulationModule } from '../simulation/simulation.module';
 import { FormsModule } from '@angular/forms';
 import { CircuitComponent } from './components/circuit/circuit.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { LocalCircuitComponent } from './components/local-circuit/local-circuit.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AppRoutingModule } from '../app-routing.module';
     SimulationPlayBarComponent,
     TestCanvasComponent,
     WireDisplayComponent,
-    CircuitComponent
+    CircuitComponent,
+    LocalCircuitComponent
   ],
   imports: [
     CommonModule,

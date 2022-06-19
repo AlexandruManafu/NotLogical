@@ -10,20 +10,34 @@ import { Level } from '../objects/Level';
 export class LevelManipulationService {
 
 
+  public levelPath = "level"
+
+  //Only for remote 
+  public levelPartialCircuitPath = "levelPartialCircuit"
+
   public level : Level = new Level()
   constructor(private router : Router) {
-
-    this.loadLocalLevel()
   }
+
+
 
   loadLocalLevel()
   {
-    let object = localStorage.getItem("level")
+    let object = localStorage.getItem(this.levelPath)
     if(object!)
     {
       object = JSON.parse(object)
       this.level.loadFromObject(object)
     }
+    else
+    {
+      this.saveLocalLevel()
+    }
+  }
+
+  saveLocalLevel()
+  {
+    localStorage.setItem(this.levelPath,JSON.stringify(this.level))
   }
 
   changeStage(stageId : string, useDifferentRoute : boolean = false)
@@ -44,6 +58,8 @@ export class LevelManipulationService {
     let test = new TestTable(inputList,outputList,newTest.name)
     this.level.tests.push(test)
     console.log(this.level)
+
+    this.saveLocalLevel()
   }
 
   public deleteTest(testTable:TestTable)

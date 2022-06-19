@@ -4,6 +4,7 @@ import { InputGate } from "./gates/InputGate"
 import { CircuitBuilder } from "./creational/CircuitBuilder"
 import { OutputGate } from "./gates/OutputGate"
 import { GateSearch } from "./utils/GateSearch"
+import { ArrayUtils } from "./utils/ArrayUtils"
 
 export class Circuit {
 
@@ -81,5 +82,34 @@ export class Circuit {
         }
         return result
 
+    }
+
+    getNextVector(currentNumber : number, toAdd : number) : {vector: Array<boolean|string>,sum: number}
+    {
+        let numberInputs = this.getInputs().length
+        let result = []
+        let vecLength = numberInputs
+ 
+        let number = currentNumber + toAdd
+
+        if(currentNumber == -1 || number > ArrayUtils.getMaximumNumberBinary(vecLength))
+        {
+            console.log("first")
+            for(let i=0; i<vecLength; i++)
+            {
+                result.push(false)
+            }
+            number = 0
+        }
+        else
+        {
+            if(number<0)
+                number = ArrayUtils.getMaximumNumberBinary(vecLength)
+
+            let binString = number.toString(2)
+            result = ArrayUtils.binaryStringToArray(binString,vecLength)
+        }
+
+        return {vector : result, sum: number}
     }
 }

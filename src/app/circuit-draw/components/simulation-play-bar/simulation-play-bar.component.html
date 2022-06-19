@@ -17,8 +17,11 @@ cdkDrag
     <img class="simulateStep" (click) = "simulateOneStep()"
     src="\assets\general icons\next_nawicon.png">
 
-    <img class="simulateButton" (click) = "simulateOneStep()"
-    src="\assets\general icons\sryp_cycle.png">
+    <img class="simulateStep flipImage" (click) = "previousInputs()"
+    src="\assets\general icons\google_right-chevron.png">
+
+    <img class="simulateStep" (click) = "nextInputs()"
+    src="\assets\general icons\google_right-chevron.png">
 
     <div 
     [style.display]="buttonDegrees == 0 ? 'block' : 'none'"

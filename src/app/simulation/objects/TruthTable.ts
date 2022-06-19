@@ -29,26 +29,6 @@ export class TruthTable {
         return this.combinationOutputMap.size
     }
 
-    private binaryStringToArray(word : string, length : number)
-    {
-        let result = []
-
-        for(let i = 0;i<length - word.length;i++)
-        {
-            result.push(false)
-        }
-        for(let i = 0;i<word.length;i++)
-        {
-            if(word[i] == '0')
-                result.push(false)
-            else if(word[i] == '1')
-                result.push(true)
-            else
-                throw new Error("binaryStringToArray unexpected letter, 0 or 1 allowed, given "+ word[i])
-        }
-        return result;
-    }
-
     // given n, compute and 2^(n) iterate and generate
     // if a truth table has n inputs then there are 2^n possible combinations
 
@@ -61,7 +41,7 @@ export class TruthTable {
         for(let i = 0;i<nrCombinations;i++)
         {
             let binaryString = i.toString(2)
-            let combination = this.binaryStringToArray(binaryString,binLength)
+            let combination =  ArrayUtils.binaryStringToArray(binaryString,binLength)
             result.set(combination,this.defaultOutput)
         }
         
@@ -85,7 +65,7 @@ export class TruthTable {
         for(let i = start;i<nrCombinations;i++)
         {
             let binaryString = i.toString(2)
-            result.push(this.binaryStringToArray(binaryString,binLength))
+            result.push(ArrayUtils.binaryStringToArray(binaryString,binLength))
         }
 
         return result

@@ -1,7 +1,9 @@
 # NotLogical
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
+
 Express Version 4.17.3.
+
 Mysql Server version 8.0.28.
 
 # Dependencies
@@ -9,7 +11,7 @@ Install Node
 
 Install Angular
 
-	Install cdk in the angular project
+	npm install angular/cdk
 	
 Install Express
 
