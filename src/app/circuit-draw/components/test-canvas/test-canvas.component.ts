@@ -18,7 +18,6 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
   idSub = new Subscription()
   id : string | null = null
   @Input() savePath = "simulator"
-  @Input() title = "Local Circuit"
   @Input() loadLocalAutomatically = false
 
   constructor(private changeDetection : ChangeDetectorRef,

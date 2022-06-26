@@ -10,6 +10,15 @@ export class LevelShareService {
 
   constructor(private httpService : HttpClientService, private loginService: LoginService) { }
 
+  private getRequestObject(circuitId : number | string) : any
+  {
+    let requestObject = {circuitId : circuitId, token:""}
+    let token = this.loginService.getField("token")
+    requestObject.token = token!
+
+    return requestObject
+  }
+
   uploadLevel(object : any)
   {
     let requestObject = {content:object, token : ""}
@@ -28,5 +37,11 @@ export class LevelShareService {
   incrementNumberCorrect(levelId : number)
   {
     return this.httpService.get("/levelCompleted/"+levelId,"")
+  }
+
+  deleteLevel(levelId : string)
+  {
+    let requestObject = this.getRequestObject(levelId)
+    return this.httpService.post(requestObject,"/deleteLevel")
   }
 }

@@ -45,7 +45,8 @@ module.exports = function(app){
 
             let response = levelEntry.getFieldsAsObject()
             await levelEntry.loadOwnerName()
-            response.isOwner = levelEntry.isOwner(user.name)
+
+            response.isOwner = levelEntry.ownerName == user.get("name")? true:false
             response.ownerId = 0
             response.id = levelEntry.id
             console.log(response)  

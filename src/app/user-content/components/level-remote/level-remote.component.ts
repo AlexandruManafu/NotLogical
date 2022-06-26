@@ -48,6 +48,7 @@ export class LevelRemoteComponent implements OnInit, OnDestroy {
             this.levelManipulation.level.name = content.name,
             this.levelManipulation.level.instructions = content.instructions,
             this.levelManipulation.level.tests = content.tests,
+            this.levelManipulation.level.isOwner = content.isOwner
             this.levelManipulation.saveLocalLevel()
             this.loaded = true
           }

@@ -22,3 +22,10 @@
     margin-top: 2ex;
     margin-left: 2ex;
 }
+
+.redButton{
+    border: none;
+    background-color: #CD5C5C;
+    color: #fff;
+}
+

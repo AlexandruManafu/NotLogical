@@ -20,11 +20,11 @@ export class LevelComponent implements OnInit {
   @Input() levelPartialCircuitPath = "levelPartialCircuit"
 
   load = false
-  buttonDegrees = 0
+  buttonDegrees = 180
   menuHeight = 7
 
   constructor(
-    private levelManipulation:LevelManipulationService,
+    public levelManipulation:LevelManipulationService,
     private overlayToggle : OverlayToggleService,
     private circuitManipulation : CircuitManipulationService,
     private windowManager : WindowManagerService,
@@ -64,12 +64,12 @@ export class LevelComponent implements OnInit {
     if(this.buttonDegrees == 0)
     {
     this.buttonDegrees = 180
-    this.menuHeight = 30
+    this.menuHeight = 7
     }
     else
     {
     this.buttonDegrees = 0
-    this.menuHeight = 7
+    this.menuHeight = 33
     }
   }
 
@@ -112,9 +112,16 @@ export class LevelComponent implements OnInit {
     }
   }
 
-  submit()
+  delete()
   {
-
+    this.levelShare.deleteLevel(this.levelManipulation.level.id.toString()).subscribe(
+      (response) => {
+        console.log(response)
+        if(response.body == "Success")
+        {
+          this.levelManipulation.changeStage("/Levels",true)
+        }
+      })
   }
 
 

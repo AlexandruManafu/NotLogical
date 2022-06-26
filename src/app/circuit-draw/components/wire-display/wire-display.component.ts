@@ -52,8 +52,9 @@ export class WireDisplayComponent implements OnInit {
 
   changeColorByWire()
   {
-    if(this.wire!.outgoing.State == "u" || this.wire!.TimesPropagated == 0)
+    if(this.wire!.TimesPropagated == 0)
     {
+      //console.log(this.wire)
       this.colorClass = ""
     }
     else if(this.wire!.incoming.State == true)
