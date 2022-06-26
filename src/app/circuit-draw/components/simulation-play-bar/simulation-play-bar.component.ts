@@ -8,11 +8,12 @@ import { SimulationRunnerService } from '../../services/simulation-runner.servic
 @Component({
   selector: 'app-simulation-play-bar',
   templateUrl: './simulation-play-bar.component.html',
-  styleUrls: ['./simulation-play-bar.component.css']
+  styleUrls: ['./simulation-play-bar.component.css','../test-canvas/test-canvas.component.css']
 })
 export class SimulationPlayBarComponent implements OnInit,OnDestroy {
 
-  @Input() title = "Simulator"
+  @Input() title = "Local Circuit"
+  @Input() canChangeProperties = true
 
   circuitName = "";
   targetEntry : any = null

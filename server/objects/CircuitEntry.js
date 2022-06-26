@@ -53,20 +53,6 @@ class CircuitEntry extends ObjectToDatabaseEntry{
         }
     }
 
-    async hasProperOwnership()
-    {
-        let id = this.id
-        let ownerId = this.fields["ownerId"]
-        let sql = "SELECT 1 FROM "+this.tableName + " WHERE id = ? AND ownerId = ?";
-
-        let selectResult = await this.getDb().select(sql,[id,ownerId]);
-        if(selectResult != undefined && selectResult[0] != undefined)
-        {
-            return true
-        }
-        return false
-    }
-
     getPreviewObject()
     {
         return {
@@ -105,15 +91,6 @@ class CircuitEntry extends ObjectToDatabaseEntry{
             }
         }
         return result
-    }
-
-    async delete()
-    {
-        if(this.id != 0)
-        {
-            let sql = "DELETE FROM "+this.tableName+" WHERE id = ?";
-            return await this.getDb().delete(sql, [this.id]);
-        }
     }
 }
 module.exports = CircuitEntry;

@@ -36,8 +36,10 @@ cdkDrag
         src="\assets\general icons\free-icons save-file.png">
         <br>
         <button *ngIf="circuitId! && targetEntry! &&  !targetEntry.isPublic" class = "shareButton blueButton" (click)="shareCircuit()">Share Circuit</button>
-        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isPublic" class = "shareButton blueButton" (click) = "unshareCircuit()">Unshare Circuit</button>
-        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isOwner" class = "shareButton redButton" (click) = "deleteCircuit()">Delete Circuit</button>
+        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isPublic && canChangeProperties"
+         class = "shareButton blueButton" (click) = "unshareCircuit()">Unshare Circuit</button>
+        <button *ngIf="circuitId! && targetEntry! &&  targetEntry.isOwner && canChangeProperties"
+         class = "shareButton redButton" (click) = "deleteCircuit()">Delete Circuit</button>
     </form>
     </div>
 

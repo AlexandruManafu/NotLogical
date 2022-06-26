@@ -1,5 +1,7 @@
-<app-test-canvas title="Partial Solution" savePath="newLevelPartialCircuit" [loadLocalAutomatically]='load'></app-test-canvas>
+<app-test-canvas savePath="newLevelPartialCircuit" [loadLocalAutomatically]='load'></app-test-canvas>
 
 <app-level-builder-canvas-navigation [previousPage]="'/LevelBuilder/2'" [nextPage]="'LevelPreview'">
 </app-level-builder-canvas-navigation>
+
+<app-simulation-play-bar [title]="'Partial Solution'" [canChangeProperties] = "false"></app-simulation-play-bar>
 

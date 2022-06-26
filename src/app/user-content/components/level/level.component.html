@@ -1,4 +1,6 @@
-<app-test-canvas [title]="simulationBarTitle" [savePath]="levelCircuitPath" [loadLocalAutomatically]='load'></app-test-canvas>
+<app-test-canvas [savePath]="levelCircuitPath" [loadLocalAutomatically]='load'></app-test-canvas>
+
+<app-simulation-play-bar [title]="simulationBarTitle" [canChangeProperties] = "false"></app-simulation-play-bar>
 
 <div 
 class = "levelBarPosition playBorder playBackground"
@@ -6,10 +8,12 @@ cdkDrag
 [style]="'height: '+menuHeight+'ex'"
 >
     <h2 class = "optionsText">Level Options</h2>
-    <div *ngIf="buttonDegrees != 0">
+    <div *ngIf="buttonDegrees != 180">
         <button class = "nextButton mediumButton spacesBetween" (click) = "reset()">Reset Level</button><br>
         <button class = "nextButton mediumButton spacesBetween" (click) = "viewDescription()">View Description</button><br>
         <button class = "nextButton mediumButton spacesBetween" (click) = "viewSpecifications()">Submit Solution</button><br>
+        <button *ngIf="levelManipulation.level.isOwner" 
+        class = "mediumButton spacesBetween redButton" (click) = "delete()">Delete</button><br>
     </div>
 
     <img class = "menuColapseButton"

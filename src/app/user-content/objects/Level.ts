@@ -9,6 +9,7 @@ export class Level
     instructions = ""
     circuit : Circuit | undefined = undefined
     tests : Array<TestTable> = []
+    isOwner = false
     type = "CircuitGivenTables" 
     constructor()
     {

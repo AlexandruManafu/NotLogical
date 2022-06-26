@@ -38,7 +38,8 @@ import { LocalCircuitComponent } from './components/local-circuit/local-circuit.
     AppRoutingModule
   ],
   exports:[
-    TestCanvasComponent
+    TestCanvasComponent,
+    SimulationPlayBarComponent
   ]
 })
 export class CircuitDrawModule { }
